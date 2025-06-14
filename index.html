@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1024">
+    <title>Home - Quán ăn bình yên</title>
+    <!-- Màu sắc giữ nguyên: #A8BECE (nền), #4A9E9E (primary), #FFF (card), #F8F9FA (navbar) -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            background-color: #A8BECE;
+            font-family: "Inter", sans-serif;
+        }
+        body {
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #F8F9FA !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,.03);
+        }
+        .navbar-brand span {
+            font-weight: bold;
+            font-size: 1.45rem;
+            letter-spacing: 0.5px;
+        }
+        .navbar-nav .nav-link {
+            font-size: 1rem;
+            color: #000 !important;
+            opacity: 0.92;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
+            border-radius: 7px;
+            padding: 8px 16px !important;
+        }
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link:focus {
+            background: #e5eef3;
+            color: #4A9E9E !important;
+        }
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link[aria-current="page"] {
+            color: #000 !important;
+            font-weight: 700;
+            background: #e5eef3;
+        }
+        .navbar .btn-primary {
+            background-color: #A8BECE;
+            border: none;
+            color: #232323;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 8px 24px;
+            font-size: 15px;
+        }
+        .navbar .btn-primary:hover {
+            background: #88a6b8;
+        }
+        /* Dropdown hover giữ menu */
+        .navbar-nav .dropdown:hover > .dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+        .navbar-nav .dropdown-menu {
+            border-radius: 8px;
+            min-width: 180px;
+            background: #fff;
+            box-shadow: 0 6px 32px rgba(0,0,0,0.09);
+            border: 1px solid #eaeaea;
+        }
+        .navbar-nav .dropdown-item {
+            font-size: 1rem;
+            color: #000;
+            padding: 10px 18px;
+            border-radius: 6px;
+            transition: background 0.15s, color 0.15s;
+        }
+        .navbar-nav .dropdown-item:hover, .navbar-nav .dropdown-item:focus {
+            background: #e5eef3;
+            color: #4A9E9E;
+        }
+        .navbar-nav .dropdown-toggle::after {
+            margin-left: 6px;
+        }
+        header {
+            margin-top: 78px;
+            margin-bottom: 10px;
+        }
+        .display-4 {
+            font-size: 1.45rem;
+            font-weight: bold;
+            color: #000;
+            letter-spacing: 0.2px;
+        }
+        .function-cards .col {
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: center;
+        }
+        .card.function-card {
+            border: none;
+            text-align: left;
+            background-color: #FFF;
+            border-radius: 15px;
+            padding: 24px 20px 20px 20px;
+            height: 185px;
+            width: 275px;
+            box-shadow: 0 2px 12px rgba(120,150,170,0.08);
+            transition: box-shadow 0.13s, transform 0.13s;
+            cursor: pointer;
+            position: relative;
+        }
+        .card.function-card:hover {
+            box-shadow: 0 4px 24px rgba(120,150,170,0.18);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .card.function-card a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+        .bs-icon {
+            width: 3.1em;
+            height: 3.1em;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1em;
+        }
+        .bs-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #4A9E9E;
+        }
+        .function-title {
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: #232325;
+            margin-bottom: 0;
+        }
+        .bg-primary {
+            background-color: #4A9E9E !important;
+            color: #FFF !important;
+        }
+        .announcement {
+            margin-top: -12px;
+            margin-bottom: 22px;
+        }
+        .announcement .bg-primary {
+            border-radius: 12px;
+        }
+        footer {
+            max-height: 150px;
+            background: transparent;
+            margin-top: 28px;
+        }
+        @media (max-width: 900px) {
+            .display-4 { font-size: 1.1rem; }
+            .card.function-card { width: 90vw; min-width: 200px;}
+            header { margin-top: 65px;}
+        }
+        @media (max-width: 600px) {
+            .main-content, .container { min-width: unset !important; }
+            .navbar .btn-primary { font-size: 13px; padding: 7px 12px; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar (giữ nguyên, có hover dropdown, đẹp mắt) -->
+    <nav class="navbar navbar-expand-md fixed-top py-3" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span>LOGO HERE</span>
+            </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Đặt món</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Thanh toán</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="false">Quản lý</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+                            <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
+                            <li><a class="dropdown-item" href="pricing2.html">Quản lý món ăn</a></li>
+                            <li><a class="dropdown-item" href="pricing3.html">Quản lý khách hàng</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="contacts.html">Thống kê</a></li>
+                </ul>
+                <a class="btn btn-primary shadow" role="button" href="signup.html">Xin chào, User admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <header>
+        <div class="container pt-4 pt-xl-5">
+            <div class="row pt-5">
+                <div class="col-12">
+                    <h1 class="display-4 fw-bold text-start mb-3">Chọn chức năng trong danh sách</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div class="container py-4 py-xl-5">
+                <div class="row function-cards row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card function-card">
+                            <a href="#">
+                                <div class="bs-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="bi bi-box-seam">
+                                        <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.629-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+                                    </svg>
+                                </div>
+                                <div class="function-title">Đặt món</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card function-card">
+                            <a href="#">
+                                <div class="bs-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="bi bi-credit-card-2-front">
+                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
+                                        <path d="M2 10h1v1H2v-1zm2 0h1v1H4v-1zm2 0h1v1H6v-1zm2 0h3v1H8v-1zm3 0h1v1h-1v-1z"/>
+                                    </svg>
+                                </div>
+                                <div class="function-title">Thanh toán</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card function-card">
+                            <a href="pricing3.html">
+                                <div class="bs-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="bi bi-person">
+                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                    </svg>
+                                </div>
+                                <div class="function-title">Quản lý khách hàng</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card function-card">
+                            <a href="pricing2.html">
+                                <div class="bs-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="bi bi-display">
+                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm1.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm1.5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zM2 13c0 .552.4 0 1 0s1 .498 1 .5-.4 1-1 1-1-.448-1-.5.4-1 1-1zm12 0c0 .552.4 0 1 0s1 .498 1 .5-.4 1-1 1-1-.448-1-.5.4-1 1-1z"/>
+                                    </svg>
+                                </div>
+                                <div class="function-title">Quản lý món ăn</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card function-card">
+                            <a href="quanlynhanvien.html">
+                                <div class="bs-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="bi bi-people">
+                                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.629 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10c-1.668.02-2.615.64-3.16 1.276C1.163 11.973 1 12.495 1 12.752v.747h4v-.547c0-.332-.223-.594-.501-.735-.279-.142-.592-.232-.945-.255z"/>
+                                    </svg>
+                                </div>
+                                <div class="function-title">Quản lý nhân viên</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card function-card">
+                            <a href="contacts.html">
+                                <div class="bs-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="bi bi-bar-chart">
+                                        <path d="M4 11h1v3H4v-3zm5-4h1v7H9V7zm5-5h1v12h-1V2zm-7 1h1v5H7V3zm-3 8h1v2H4v-2z"/>
+                                    </svg>
+                                </div>
+                                <div class="function-title">Thống kê</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="announcement py-2 py-xl-0">
+            <div class="container">
+                <div class="text-white bg-primary border rounded border-0 d-flex flex-column flex-lg-row p-5 p-md-5">
+                    <div class="pb-2 pb-lg-1">
+                        <h2 class="fw-bold mb-2">Quảng cáo hôm nay, trước mắt chưa biết thế nào</h2>
+                        <p class="mb-0">Liên hệ với quản lý của bạn để có sự giúp đỡ cần thiết</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container py-4 py-lg-5">
+            <hr>
+            <div class="text-muted d-flex justify-content-between align-items-center pt-3">
+                <p class="mb-0">Copyright © 2025 Nhà hàng bình yên</p>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

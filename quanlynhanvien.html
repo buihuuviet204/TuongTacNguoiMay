@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Quán ăn bình yên</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #A8BECE;
+            font-family: "Inter", sans-serif;
+        }
+        * {
+            font-family: "Inter", sans-serif;
+            color: #000;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+        }
+        .navbar-nav .nav-link {
+            font-size: 1rem;
+            color: #000;
+        }
+        .navbar-nav .nav-link.active {
+            color: #000;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #6C757D;
+            border-color: #6C757D;
+        }
+        .display-4 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000;
+        }
+        .btn-custom {
+            background-color: #252858 !important;
+            border-color: #252858 !important;
+            color: white;
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-size: 1rem;
+        }
+        .btn-custom:hover {
+            background-color: #1b1d4a !important;
+            border-color: #1b1d4a !important;
+        }
+        .input-ma-nv {
+            min-width: 300px;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-right: 12px;
+        }
+        .title-nhanvien {
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #FFF;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .dropdown-menu a {
+            color: #000;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-menu a:hover {
+            background-color: #f1f1f1;
+        }
+        .modal-success-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-success-icon {
+            font-size: 2rem;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md fixed-top py-3" id="mainNav" style="background-color: #F8F9FA;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span>LOGO HERE</span>
+            </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button">Đặt món</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" role="button">Thanh toán</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink3">Quản lý</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+                            <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
+                            <li><a class="dropdown-item" href="pricing2.html">Quản lý món ăn</a></li>
+                            <li><a class="dropdown-item" href="pricing3.html">Quản lý khách hàng</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="contacts.html">Thống kê</a></li>
+                </ul>
+                <a style="background-color: #A8BECE; border-radius: 10px; border: 0;" class="btn btn-primary shadow" role="button" href="signup.html">Xin chào, User admin</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mt-5 pt-5">
+        <h2 class="title-nhanvien">QUẢN LÝ NHÂN VIÊN</h2>
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+            <a href="themnhanvien.html"><button class="btn btn-custom mb-2">Thêm mới nhân viên</button></a>
+            <div class="input-group" style="max-width: 350px;">
+                <input class="form-control" type="text" placeholder="Nhập mã nhân viên">
+                <button class="btn btn-dark" style="background-color: #1b1d4a; border-top-right-radius: 10px;border-bottom-right-radius: 10px">Xác nhận</button>
+            </div>
+        </div>
+        <div class="table-responsive bg-white rounded shadow-sm">
+            <table class="table align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Mã nhân viên</th>
+                        <th>Họ và tên</th>
+                        <th>Vị trí làm việc</th>
+                        <th>Ngày vào làm</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>NV001</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>Thu ngân</td>
+                        <td>01/02/2005</td>
+                        <td>
+                            <a href="ChinhSuaNhanVien.html"><i class="fa-solid fa-pen-to-square text-warning me-2"></i></a>
+                            <i class="fa-solid fa-trash text-danger delete-btn"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal xác nhận xóa -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><b>Xóa Nhân Viên</b></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center;" class="modal-body">
+    <p style="font-size: 40px; margin-right: 15px;">
+        <i class="fa-solid fa-triangle-exclamation text-warning"></i>
+    </p>
+    <p>Bạn có chắc chắn muốn xóa nhân viên này không?<br>Hành động này sẽ không thể hoàn tác</p>
+</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal thông báo thành công -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><b>Xóa Nhân Viên</b></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <i class="fa-solid fa-circle-check fs-1 me-3 modal-success-icon"></i>
+                <span class="fs-5">Xóa thông tin nhân viên thành công!</span>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentRowToDelete = null;
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                currentRowToDelete = this.closest('tr');
+                new bootstrap.Modal(document.getElementById('confirmDeleteModal')).show();
+            });
+        });
+
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+            if (currentRowToDelete) {
+                currentRowToDelete.remove();
+                bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal')).hide();
+                new bootstrap.Modal(document.getElementById('successModal')).show();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Home - Quán ăn bình yên</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #A8BECE;
+      font-family: "Inter", sans-serif;
+    }
+    * {
+      font-family: "Inter", sans-serif;
+      color: #000;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+    }
+
+    .navbar-nav .nav-link {
+      font-size: 1rem;
+      color: #000;
+    }
+
+    .navbar-nav .nav-link.active {
+      color: #000;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #6C757D;
+      border-color: #6C757D;
+    }
+
+    .display-4 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .card {
+      border: none;
+      text-align: left;
+      background-color: #FFF;
+      border-radius: 10px;
+      padding: 30px;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .bs-icon {
+      width: 4em;
+      height: 4em;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .btn-custom {
+      background-color: #252858 !important;
+      border-color: #252858 !important;
+      color: white;
+      border-radius: 10px;
+      padding: 8px 16px;
+      font-size: 1rem;
+    }
+
+    .btn-custom:hover {
+      background-color: #1b1d4a !important;
+      border-color: #1b1d4a !important;
+    }
+
+    .input-ma-nv {
+      min-width: 300px;
+      max-width: 400px;
+      border-radius: 10px;
+      margin-right: 12px;
+    }
+
+    .title-nhanvien {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .bs-icon svg {
+      width: 4em;
+      height: 4em;
+      fill: currentColor;
+      object-fit: contain;
+    }
+
+    .bg-primary {
+      background-color: #4A9E9E !important;
+      color: #FFF;
+    }
+
+    .text-secondary {
+      color: #FFF !important;
+    }
+
+    .function-cards .col {
+      margin-bottom: 10px;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: #FFF;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    .dropdown-menu a {
+      color: #000;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f1f1f1;
+    }
+
+    form input.form-control {
+      border-radius: 10px;
+      border-color: #ced4da;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20%;
+      margin-top: 30px;
+      gap: 10px;
+    }
+
+    .btn-equal {
+      flex: 1;
+      max-width: 200px;
+    }
+
+    .text-error {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    input.form-control.is-invalid {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md fixed-top py-3" id="mainNav" style="background-color: #F8F9FA;">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <span>LOGO HERE</span>
+        </a>
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" role="button">Đặt món</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" role="button">Thanh toán</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="false">Quản lý</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+                        <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
+                        <li><a class="dropdown-item" href="pricing2.html">Quản lý món ăn</a></li>
+                        <li><a class="dropdown-item" href="pricing3.html">Quản lý khách hàng</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link active" href="contacts.html">Thống kê</a></li>
+            </ul>
+            <a style="background-color: #A8BECE; border-radius: 10px; border: 0;" class="btn btn-primary shadow" role="button" href="signup.html">Xin chào, User admin</a>
+        </div>
+    </div>
+</nav>
+  <div class="container pt-5 mt-5">
+    <h2 class="title-nhanvien">Chỉnh Sửa Thông Tin Nhân Viên</h2>
+    <div class="card mt-4 shadow">
+      <form id="nhanVienForm" novalidate>
+        <div class="mb-3">
+          <label for="hoVaTen" class="form-label">Họ và tên</label>
+          <input type="text" class="form-control" id="hoVaTen" required>
+          <div id="hoVaTenError" class="text-error"></div>
+        </div>
+        <div class="mb-3">
+          <label for="ngaySinh" class="form-label">Ngày tháng năm sinh</label>
+          <input type="date" class="form-control" id="ngaySinh" value="2000-01-01">
+        </div>
+        <div class="mb-3">
+          <label for="viTriLamViec" class="form-label">Vị trí làm việc</label>
+          <input type="text" class="form-control" id="viTriLamViec" value="Phục vụ">
+        </div>
+        <div class="mb-3">
+          <label for="soDienThoai" class="form-label">Số điện thoại</label>
+          <input type="tel" class="form-control" id="soDienThoai" required>
+          <div id="soDienThoaiError" class="text-error"></div>
+        </div>
+        <div class="mb-3">
+          <label for="ngayLamViec" class="form-label">Ngày làm việc</label>
+          <input type="date" class="form-control" id="ngayLamViec" value="2022-02-01">
+        </div>
+        <div class="btn-container">
+          <button type="submit" class="btn btn-success btn-equal">Xác nhận</button>
+          <button type="button" class="btn btn-danger btn-equal" onclick="window.location.href='quanlynhanvien.html'">Hủy bỏ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const hoVaTen = document.getElementById("hoVaTen");
+      const soDienThoai = document.getElementById("soDienThoai");
+
+      hoVaTen.classList.remove("is-invalid");
+      soDienThoai.classList.remove("is-invalid");
+
+      // blur validation
+      hoVaTen.addEventListener("blur", function () {
+        const error = document.getElementById("hoVaTenError");
+        if (this.value.trim() === "") {
+          error.textContent = "Vui lòng nhập vào các trường!";
+          this.classList.add("is-invalid");
+        } else {
+          error.textContent = "";
+          this.classList.remove("is-invalid");
+        }
+      });
+
+      soDienThoai.addEventListener("blur", function () {
+        const error = document.getElementById("soDienThoaiError");
+        if (this.value.trim() === "") {
+          error.textContent = "Vui lòng nhập vào các trường!";
+          this.classList.add("is-invalid");
+        } else {
+          error.textContent = "";
+          this.classList.remove("is-invalid");
+        }
+      });
+
+      // form submit
+      document.getElementById("nhanVienForm").addEventListener("submit", function (e) {
+        let valid = true;
+
+        if (hoVaTen.value.trim() === "") {
+          document.getElementById("hoVaTenError").textContent = "Vui lòng nhập vào các trường!";
+          hoVaTen.classList.add("is-invalid");
+          valid = false;
+        }
+
+        if (soDienThoai.value.trim() === "") {
+          document.getElementById("soDienThoaiError").textContent = "Vui lòng nhập vào các trường!";
+          soDienThoai.classList.add("is-invalid");
+          valid = false;
+        }
+
+        if (!valid) {
+          e.preventDefault();
+        }
+      });
+    });
+  </script>
+  <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
