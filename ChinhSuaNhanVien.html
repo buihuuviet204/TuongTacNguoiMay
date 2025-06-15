@@ -1,58 +1,117 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" lang="en">
+<html data-bs-theme="light" lang="vi">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>Home - Quán ăn bình yên</title>
+  <title>Chỉnh sửa nhân viên - Quán ăn bình yên</title>
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    html, body {
       background-color: #A8BECE;
       font-family: "Inter", sans-serif;
+    }
+    body {
+      min-height: 100vh;
     }
     * {
       font-family: "Inter", sans-serif;
       color: #000;
     }
-
-    .navbar-brand {
-      font-size: 1.5rem;
+    .navbar {
+      background-color: #F8F9FA !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,.03);
     }
-
+    .navbar-brand span {
+      font-weight: bold;
+      font-size: 1.45rem;
+      letter-spacing: 0.5px;
+    }
     .navbar-nav .nav-link {
       font-size: 1rem;
+      color: #000 !important;
+      opacity: 0.92;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      border-radius: 7px;
+      padding: 8px 16px !important;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+      background: #e5eef3;
+      color: #4A9E9E !important;
+    }
+    .navbar-nav .nav-link.active,
+    .navbar-nav .dropdown.show > .nav-link.dropdown-toggle,
+    .navbar-nav .dropdown .nav-link.active {
+      color: #000 !important;
+      font-weight: 700;
+      background: #e5eef3;
+    }
+    .navbar .btn-primary {
+      background-color: #A8BECE;
+      border: none;
+      color: #232323;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 8px 24px;
+      font-size: 15px;
+    }
+    .navbar .btn-primary:hover {
+      background: #88a6b8;
+    }
+    /* Dropdown hover giữ menu */
+    .navbar-nav .dropdown:hover > .dropdown-menu {
+      display: block;
+      margin-top: 0;
+    }
+    .navbar-nav .dropdown-menu {
+      border-radius: 8px;
+      min-width: 180px;
+      background: #fff;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.09);
+      border: 1px solid #eaeaea;
+    }
+    .navbar-nav .dropdown-item {
+      font-size: 1rem;
       color: #000;
+      padding: 10px 18px;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .navbar-nav .dropdown-item:hover, .navbar-nav .dropdown-item:focus {
+      background: #e5eef3;
+      color: #4A9E9E;
+    }
+    .navbar-nav .dropdown-toggle::after {
+      margin-left: 6px;
     }
 
-    .navbar-nav .nav-link.active {
-      color: #000;
+    .title-nhanvien {
+      font-size: 1.18rem;
       font-weight: bold;
+      text-align: left;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1px;
     }
-
-    .btn-primary {
-      background-color: #6C757D;
-      border-color: #6C757D;
-    }
-
-    .display-4 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #000;
-    }
-
     .card {
       border: none;
       text-align: left;
       background-color: #FFF;
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 30px;
       width: 100%;
       max-width: 100%;
+      box-shadow: 0 4px 16px rgba(120,150,170,0.08);
     }
-
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
     .bs-icon {
       width: 4em;
       height: 4em;
@@ -62,93 +121,26 @@
       justify-content: center;
       margin-bottom: 1rem;
     }
-
-    .btn-custom {
-      background-color: #252858 !important;
-      border-color: #252858 !important;
-      color: white;
-      border-radius: 10px;
-      padding: 8px 16px;
-      font-size: 1rem;
-    }
-
-    .btn-custom:hover {
-      background-color: #1b1d4a !important;
-      border-color: #1b1d4a !important;
-    }
-
-    .input-ma-nv {
-      min-width: 300px;
-      max-width: 400px;
-      border-radius: 10px;
-      margin-right: 12px;
-    }
-
-    .title-nhanvien {
-      font-size: 1.25rem;
-      font-weight: bold;
-      text-align: left;
-      margin-bottom: 1rem;
-    }
-
-    .card-body {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-    }
-
     .bs-icon svg {
       width: 4em;
       height: 4em;
       fill: currentColor;
       object-fit: contain;
     }
-
     .bg-primary {
       background-color: #4A9E9E !important;
       color: #FFF;
     }
-
     .text-secondary {
       color: #FFF !important;
     }
-
     .function-cards .col {
       margin-bottom: 10px;
     }
-
-    .dropdown:hover .dropdown-menu {
-      display: block;
-    }
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      background-color: #FFF;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      min-width: 160px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      z-index: 1000;
-    }
-
-    .dropdown-menu a {
-      color: #000;
-      padding: 10px 15px;
-      text-decoration: none;
-      display: block;
-    }
-
-    .dropdown-menu a:hover {
-      background-color: #f1f1f1;
-    }
-
     form input.form-control {
       border-radius: 10px;
       border-color: #ced4da;
     }
-
     .btn-container {
       display: flex;
       justify-content: space-between;
@@ -156,55 +148,71 @@
       margin-top: 30px;
       gap: 10px;
     }
-
     .btn-equal {
       flex: 1;
       max-width: 200px;
     }
-
     .text-error {
       color: #dc3545;
       font-size: 0.875rem;
       margin-top: 0.25rem;
     }
-
     input.form-control.is-invalid {
       border-color: #dc3545;
       box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+    @media (max-width: 900px) {
+      .btn-container {
+        padding: 0 5%;
+      }
+      .card {
+        padding: 15px;
+      }
+    }
+    @media (max-width: 600px) {
+      .btn-container {
+        flex-direction: column;
+        padding: 0 0;
+      }
+      .btn-equal {
+        max-width: none;
+        width: 100%;
+      }
+      .card {
+        padding: 8px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-md fixed-top py-3" id="mainNav" style="background-color: #F8F9FA;">
+  <!-- Navbar đẹp, hiện đại, "Quản lý" sẽ được bôi nền (active) đúng trang -->
+  <nav class="navbar navbar-expand-md fixed-top py-3" id="mainNav">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="index.html">
-            <span>LOGO HERE</span>
-        </a>
-        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navcol-1">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" role="button">Đặt món</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" role="button">Thanh toán</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="false">Quản lý</a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
-                        <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
-                        <li><a class="dropdown-item" href="pricing2.html">Quản lý món ăn</a></li>
-                        <li><a class="dropdown-item" href="pricing3.html">Quản lý khách hàng</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link active" href="contacts.html">Thống kê</a></li>
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <span>LOGO HERE</span>
+      </a>
+      <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navcol-1">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Đặt món</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Thanh toán</a></li>
+          <li class="nav-item dropdown">
+            <!-- Thêm active vào nav-link dropdown-toggle -->
+            <a class="nav-link dropdown-toggle active" href="#" role="button" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="false">Quản lý</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+              <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
+              <li><a class="dropdown-item" href="pricing2.html">Quản lý món ăn</a></li>
+              <li><a class="dropdown-item" href="pricing3.html">Quản lý khách hàng</a></li>
             </ul>
-            <a style="background-color: #A8BECE; border-radius: 10px; border: 0;" class="btn btn-primary shadow" role="button" href="signup.html">Xin chào, User admin</a>
-        </div>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="ThongKe.html">Thống kê</a></li>
+        </ul>
+        <a class="btn btn-primary shadow" role="button" href="signup.html">Xin chào, User admin</a>
+      </div>
     </div>
-</nav>
+  </nav>
   <div class="container pt-5 mt-5">
     <h2 class="title-nhanvien">Chỉnh Sửa Thông Tin Nhân Viên</h2>
     <div class="card mt-4 shadow">
