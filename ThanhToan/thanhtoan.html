@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách hóa đơn - Quán ăn bình yên</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <style>
-/* CSS của bạn ở đây */
+        /* CSS của bạn ở đây */
         * {
             margin: 0;
             padding: 0;
@@ -18,14 +20,99 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #A8BECE;
-            min-height: 100vh;
+            min-height: 50vh;
         }
 
-        .container {
+        /* header */
+        .navbar {
+            background-color: #F8F9FA !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .03);
+        }
+
+        .navbar-brand span {
+            font-weight: bold;
+            font-size: 1.45rem;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 1rem;
+            color: #000 !important;
+            opacity: 0.92;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
+            border-radius: 7px;
+            padding: 8px 16px !important;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link:focus {
+            background: #e5eef3;
+            color: #4A9E9E !important;
+        }
+
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link[aria-current="page"] {
+            color: #000 !important;
+            font-weight: 700;
+            background: #e5eef3;
+        }
+
+        .navbar .btn-primary {
+            background-color: #A8BECE;
+            border: none;
+            color: #232323;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 8px 24px;
+            font-size: 15px;
+        }
+
+        .navbar .btn-primary:hover {
+            background: #88a6b8;
+        }
+
+        .navbar-nav .dropdown:hover>.dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+
+        .navbar-nav .dropdown-menu {
+            border-radius: 8px;
+            min-width: 180px;
+            background: #fff;
+            box-shadow: 0 6px 32px rgba(0, 0, 0, 0.09);
+            border: 1px solid #eaeaea;
+        }
+
+        .navbar-nav .dropdown-item {
+            font-size: 1rem;
+            color: #000;
+            padding: 10px 18px;
+            border-radius: 6px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .navbar-nav .dropdown-item:hover,
+        .navbar-nav .dropdown-item:focus {
+            background: #e5eef3;
+            color: #4A9E9E;
+        }
+
+        .navbar-nav .dropdown-toggle::after {
+            margin-left: 6px;
+        }
+
+        .header {
+            margin-top: 78px;
+            margin-bottom: 10px;
+        }
+
+        .containerTable {
             width: 100%;
             max-width: 1000px;
             background-color: #ffffff;
-            margin: 30px auto;
+            margin: 0px auto;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -35,97 +122,30 @@
             max-width: 1000px;
             margin: 30px auto;
             border-radius: 10px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding: 10px 50px;
-            background-color: #ffffff;
-            border-radius: 5px;
-        }
-
-        .logo {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 130px;
-            position: relative;
-        }
-
-        .nav-item {
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-            position: relative;
-        }
-
-        .nav-item.dropdown {
-            cursor: pointer;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            min-width: 160px;
-            z-index: 1000;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-item {
-            display: block;
-            padding: 10px 15px;
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .dropdown-item:hover {
-            background-color: #f3f3f3;
-        }
-
-        .user-info {
-            background-color: #9db4d1;
-            color: #333;
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-size: 12px;
+            margin-top: 100px;
         }
 
         .search-bar {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            align-items: center;    
         }
 
         .search-elements-wrapper {
             display: flex;
-            flex-direction: column; 
+            flex-direction: column;
         }
 
         .input-and-button-group {
             display: flex;
             align-items: center;
-            gap: 20px; /* Khoảng cách giữa input và button */
+            gap: 20px;
+            /* Khoảng cách giữa input và button */
         }
 
         .input-with-icon {
-            position: relative; /* Đặt vị trí tương đối cho phần tử cha */
+            position: relative;
+            /* Đặt vị trí tương đối cho phần tử cha */
         }
 
         .search-bar input {
@@ -133,9 +153,11 @@
             font-size: 14px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            width: 200px; /* Giữ nguyên chiều rộng của input */
+            width: 200px;
+            /* Giữ nguyên chiều rộng của input */
             transition: border-color 0.3s ease;
-            padding-left: 30px; /* Tăng padding bên phải để tạo không gian cho icon */
+            padding-left: 30px;
+            /* Tăng padding bên phải để tạo không gian cho icon */
         }
 
         .search-bar input.error {
@@ -144,13 +166,20 @@
 
         /* Mới: Style cho icon tìm kiếm bên trong input */
         .search-icon {
-            position: absolute; /* Đặt vị trí tuyệt đối cho icon */
-            left: 10px; /* Khoảng cách từ mép phải của input */
-            top: 50%; /* Dịch icon xuống giữa theo chiều dọc */
-            transform: translateY(-50%); /* Điều chỉnh chính xác để icon nằm giữa */
-            color: #888; /* Màu sắc icon hơi xám */
-            pointer-events: none; /* Đảm bảo icon không chặn sự kiện click/focus của input */
-            font-size: 16px; /* Kích thước icon */
+            position: absolute;
+            /* Đặt vị trí tuyệt đối cho icon */
+            left: 10px;
+            /* Khoảng cách từ mép phải của input */
+            top: 50%;
+            /* Dịch icon xuống giữa theo chiều dọc */
+            transform: translateY(-50%);
+            /* Điều chỉnh chính xác để icon nằm giữa */
+            color: #888;
+            /* Màu sắc icon hơi xám */
+            pointer-events: none;
+            /* Đảm bảo icon không chặn sự kiện click/focus của input */
+            font-size: 16px;
+            /* Kích thước icon */
         }
 
 
@@ -222,28 +251,22 @@
         }
 
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
-
+            
             .search-bar {
                 flex-direction: column;
                 gap: 10px;
-                align-items: center; /* Căn giữa cho mobile */
+                align-items: center;
+                /* Căn giữa cho mobile */
             }
+
             .search-elements-wrapper {
-                align-items: center; /* Căn giữa cho mobile */
+                align-items: center;
+                /* Căn giữa cho mobile */
             }
 
             .input-and-button-group {
-                flex-direction: column; /* Xếp chồng input và button trên mobile */
+                flex-direction: column;
+                /* Xếp chồng input và button trên mobile */
             }
 
             .search-bar input {
@@ -254,51 +277,59 @@
 </head>
 
 <body>
-    <div class="nav">
-        <header class="header">
-            <div class="logo">LOGO HERE <br> Quán ăn bình yên</div>
-            <nav class="nav-menu">
-                <a href="#" class="nav-item">Trang chủ</a>
-                <a href="#" class="nav-item">Đặt món</a>
-                <a href="thanhtoan.html" class="nav-item"><b>Thanh toán</b></a>
-                <div class="nav-item dropdown" onclick="toggleDropdown()">Quản lý
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <a href="#" class="dropdown-item">Quản lý nhân viên</a>
-                        <a href="#" class="dropdown-item">Quản lý khách hàng</a>
-                        <a href="#" class="dropdown-item">Quản lý món ăn</a>
-                    </div>
-                </div>
-                <a href="#" class="nav-item">Thống kê</a>
-            </nav>
-            <div class="user-info">Xin chào, User admin</div>
-        </header>
-    </div>
+    <nav class="navbar navbar-expand-md fixed-top py-3 menu" id="mainNav" style="background-color: #A8BECE;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span>LOGO HERE</span>
+            </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span
+                    class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Đặt món</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Thanh toán</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink3"
+                            data-bs-toggle="dropdown" aria-expanded="false">Quản lý</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+                            <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
+                            <li><a class="dropdown-item" href="quanlymonan.html">Quản lý món ăn</a></li>
+                            <li><a class="dropdown-item" href="quanlykhachhang.html">Quản lý khách hàng</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="ThongKe.html">Thống kê</a></li>
+                </ul>
+                <a class="btn btn-primary shadow" role="button" href="user.html">Xin chào, User admin</a>
+            </div>
+        </div>
+    </nav>
+
 
     <div class="search_container">
         <div class="search-bar">
-            <h2>DANH SÁCH HÓA ĐƠN</h2>
+            <h2><b>DANH SÁCH HÓA ĐƠN</b></h2>
             <div class="search-elements-wrapper">
                 <div class="input-and-button-group">
                     <div class="input-with-icon">
                         <i class="bi bi-search search-icon"></i>
                         <input type="text" id="searchInput" placeholder="Vui lòng nhập số bàn" oninput="searchTable()">
                     </div>
-                    <button onclick="searchTable()">Xác nhận</button>
+                    <button onclick="searchTable()">Tìm kiếm</button>
                 </div>
                 <div id="errorMessage" class="error-message">Vui lòng nhập số bàn để tìm kiếm!</div>
             </div>
-            </div>
+        </div>
     </div>
 
-    <div class="container">
-
+    <div class="containerTable">
         <table id="invoiceTable">
             <thead>
                 <tr>
                     <th>Số bàn</th>
                     <th>Mã hóa đơn</th>
                     <th>Ngày đặt</th>
-                    <th>Tiền</th>
+                    <th>Tổng tiền</th>
                     <th>Trạng thái</th>
                     <th>Chi tiết</th>
                 </tr>
@@ -310,7 +341,7 @@
                     <td>28/05/2025 14:09</td>
                     <td>1.000.000 VND</td>
                     <td>Chưa thanh toán</td>
-                    <td><a href="chitiethoadon.html" class="view-btn">👁️</a></td>
+                    <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
                     <td>Bàn 2</td>
@@ -318,7 +349,7 @@
                     <td>28/05/2025 14:10</td>
                     <td>1.000.000 VND</td>
                     <td>Chưa thanh toán</td>
-                    <td><a href="#" class="view-btn">👁️</a></td>
+                    <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
                     <td>Bàn 3</td>
@@ -326,7 +357,7 @@
                     <td>28/05/2025 14:11</td>
                     <td>1.000.000 VND</td>
                     <td>Chưa thanh toán</td>
-                    <td><a href="#" class="view-btn">👁️</a></td>
+                    <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
                     <td>Bàn 4</td>
@@ -334,7 +365,7 @@
                     <td>28/05/2025 14:20</td>
                     <td>1.000.000 VND</td>
                     <td>Chưa thanh toán</td>
-                    <td><a href="#" class="view-btn">👁️</a></td>
+                    <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
                     <td>Bàn 5</td>
@@ -342,7 +373,7 @@
                     <td>28/05/2025 14:22</td>
                     <td>1.000.000 VND</td>
                     <td>Chưa thanh toán</td>
-                    <td><a href="#" class="view-btn">👁️</a></td>
+                    <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
                     <td>Bàn 6</td>
@@ -350,7 +381,7 @@
                     <td>28/05/2025 14:30</td>
                     <td>1.000.000 VND</td>
                     <td>Chưa thanh toán</td>
-                    <td><a href="#" class="view-btn">👁️</a></td>
+                    <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
                     <td>Bàn 7</td>
@@ -358,7 +389,7 @@
                     <td>28/05/2025 14:33</td>
                     <td>1.000.000 VND</td>
                     <td>Chưa thanh toán</td>
-                    <td><a href="#" class="view-btn">👁️</a></td>
+                    <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
                     <td>Bàn 1</td>
@@ -366,15 +397,7 @@
                     <td>28/05/2025 14:42</td>
                     <td>1.000.000 VND</td>
                     <td>Chưa thanh toán</td>
-                    <td><a href="#" class="view-btn">👁️</a></td>
-                </tr>
-                <tr>
-                    <td>Bàn 9</td>
-                    <td>11118</td>
-                    <td>28/05/2025 14:53</td>
-                    <td>1.000.000 VND</td>
-                    <td>Chưa thanh toán</td>
-                    <td><a href="#" class="view-btn">👁️</a></td>
+                    <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
                     <td>Bàn 10</td>
@@ -382,15 +405,15 @@
                     <td>28/05/2025 15:20</td>
                     <td>1.000.000 VND</td>
                     <td>Chưa thanh toán</td>
-                    <td><a href="#" class="view-btn">👁️</a></td>
+                    <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
-                    <td>Bàn 11</td>
+                    <td>Bàn 9</td>
                     <td>11120</td>
                     <td>28/05/2025 15:22</td>
                     <td>1.000.000 VND</td>
                     <td class="paid">Đã thanh toán</td>
-                    <td><a href="#" class="view-btn">👁️</a></td>
+                    <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
             </tbody>
         </table>
@@ -453,7 +476,7 @@
         }
 
         // Đóng menu khi click ra ngoài
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (!event.target.matches('.dropdown')) {
                 const dropdowns = document.getElementsByClassName('dropdown-menu');
                 for (let i = 0; i < dropdowns.length; i++) {
