@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách hóa đơn - Quán ăn bình yên</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <style>
+/* CSS của bạn ở đây */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #A8BECE;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background-color: #ffffff;
+            margin: 30px auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search_container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 30px auto;
+            border-radius: 10px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 10px 50px;
+            background-color: #ffffff;
+            border-radius: 5px;
+        }
+
+        .logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 130px;
+            position: relative;
+        }
+
+        .nav-item {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .nav-item.dropdown {
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-width: 160px;
+            z-index: 1000;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f3f3f3;
+        }
+
+        .user-info {
+            background-color: #9db4d1;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-elements-wrapper {
+            display: flex;
+            flex-direction: column; 
+        }
+
+        .input-and-button-group {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Khoảng cách giữa input và button */
+        }
+
+        .input-with-icon {
+            position: relative; /* Đặt vị trí tương đối cho phần tử cha */
+        }
+
+        .search-bar input {
+            padding: 5px 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px; /* Giữ nguyên chiều rộng của input */
+            transition: border-color 0.3s ease;
+            padding-left: 30px; /* Tăng padding bên phải để tạo không gian cho icon */
+        }
+
+        .search-bar input.error {
+            border-color: #ff0000;
+        }
+
+        /* Mới: Style cho icon tìm kiếm bên trong input */
+        .search-icon {
+            position: absolute; /* Đặt vị trí tuyệt đối cho icon */
+            left: 10px; /* Khoảng cách từ mép phải của input */
+            top: 50%; /* Dịch icon xuống giữa theo chiều dọc */
+            transform: translateY(-50%); /* Điều chỉnh chính xác để icon nằm giữa */
+            color: #888; /* Màu sắc icon hơi xám */
+            pointer-events: none; /* Đảm bảo icon không chặn sự kiện click/focus của input */
+            font-size: 16px; /* Kích thước icon */
+        }
+
+
+        .search-bar button {
+            padding: 5px 15px;
+            background-color: #252858;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #6a8ba8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #e0e7f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #ffffff;
+            color: black;
+        }
+
+        td {
+            background-color: #ffffff;
+        }
+
+        .view-btn {
+            padding: 5px auto;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .error-message {
+            display: none;
+            color: #ff0000;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .paid {
+            color: green;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center; /* Căn giữa cho mobile */
+            }
+            .search-elements-wrapper {
+                align-items: center; /* Căn giữa cho mobile */
+            }
+
+            .input-and-button-group {
+                flex-direction: column; /* Xếp chồng input và button trên mobile */
+            }
+
+            .search-bar input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <header class="header">
+            <div class="logo">LOGO HERE <br> Quán ăn bình yên</div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item">Trang chủ</a>
+                <a href="#" class="nav-item">Đặt món</a>
+                <a href="thanhtoan.html" class="nav-item"><b>Thanh toán</b></a>
+                <div class="nav-item dropdown" onclick="toggleDropdown()">Quản lý
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a href="#" class="dropdown-item">Quản lý nhân viên</a>
+                        <a href="#" class="dropdown-item">Quản lý khách hàng</a>
+                        <a href="#" class="dropdown-item">Quản lý món ăn</a>
+                    </div>
+                </div>
+                <a href="#" class="nav-item">Thống kê</a>
+            </nav>
+            <div class="user-info">Xin chào, User admin</div>
+        </header>
+    </div>
+
+    <div class="search_container">
+        <div class="search-bar">
+            <h2>DANH SÁCH HÓA ĐƠN</h2>
+            <div class="search-elements-wrapper">
+                <div class="input-and-button-group">
+                    <div class="input-with-icon">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Vui lòng nhập số bàn" oninput="searchTable()">
+                    </div>
+                    <button onclick="searchTable()">Xác nhận</button>
+                </div>
+                <div id="errorMessage" class="error-message">Vui lòng nhập số bàn để tìm kiếm!</div>
+            </div>
+            </div>
+    </div>
+
+    <div class="container">
+
+        <table id="invoiceTable">
+            <thead>
+                <tr>
+                    <th>Số bàn</th>
+                    <th>Mã hóa đơn</th>
+                    <th>Ngày đặt</th>
+                    <th>Tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bàn 8</td>
+                    <td>11121</td>
+                    <td>28/05/2025 14:09</td>
+                    <td>1.000.000 VND</td>
+                    <td>Chưa thanh toán</td>
+                    <td><a href="chitiethoadon.html" class="view-btn">👁️</a></td>
+                </tr>
+                <tr>
+                    <td>Bàn 2</td>
+                    <td>11112</td>
+                    <td>28/05/2025 14:10</td>
+                    <td>1.000.000 VND</td>
+                    <td>Chưa thanh toán</td>
+                    <td><a href="#" class="view-btn">👁️</a></td>
+                </tr>
+                <tr>
+                    <td>Bàn 3</td>
+                    <td>11113</td>
+                    <td>28/05/2025 14:11</td>
+                    <td>1.000.000 VND</td>
+                    <td>Chưa thanh toán</td>
+                    <td><a href="#" class="view-btn">👁️</a></td>
+                </tr>
+                <tr>
+                    <td>Bàn 4</td>
+                    <td>11114</td>
+                    <td>28/05/2025 14:20</td>
+                    <td>1.000.000 VND</td>
+                    <td>Chưa thanh toán</td>
+                    <td><a href="#" class="view-btn">👁️</a></td>
+                </tr>
+                <tr>
+                    <td>Bàn 5</td>
+                    <td>11115</td>
+                    <td>28/05/2025 14:22</td>
+                    <td>1.000.000 VND</td>
+                    <td>Chưa thanh toán</td>
+                    <td><a href="#" class="view-btn">👁️</a></td>
+                </tr>
+                <tr>
+                    <td>Bàn 6</td>
+                    <td>11116</td>
+                    <td>28/05/2025 14:30</td>
+                    <td>1.000.000 VND</td>
+                    <td>Chưa thanh toán</td>
+                    <td><a href="#" class="view-btn">👁️</a></td>
+                </tr>
+                <tr>
+                    <td>Bàn 7</td>
+                    <td>11117</td>
+                    <td>28/05/2025 14:33</td>
+                    <td>1.000.000 VND</td>
+                    <td>Chưa thanh toán</td>
+                    <td><a href="#" class="view-btn">👁️</a></td>
+                </tr>
+                <tr>
+                    <td>Bàn 1</td>
+                    <td>11111</td>
+                    <td>28/05/2025 14:42</td>
+                    <td>1.000.000 VND</td>
+                    <td>Chưa thanh toán</td>
+                    <td><a href="#" class="view-btn">👁️</a></td>
+                </tr>
+                <tr>
+                    <td>Bàn 9</td>
+                    <td>11118</td>
+                    <td>28/05/2025 14:53</td>
+                    <td>1.000.000 VND</td>
+                    <td>Chưa thanh toán</td>
+                    <td><a href="#" class="view-btn">👁️</a></td>
+                </tr>
+                <tr>
+                    <td>Bàn 10</td>
+                    <td>11119</td>
+                    <td>28/05/2025 15:20</td>
+                    <td>1.000.000 VND</td>
+                    <td>Chưa thanh toán</td>
+                    <td><a href="#" class="view-btn">👁️</a></td>
+                </tr>
+                <tr>
+                    <td>Bàn 11</td>
+                    <td>11120</td>
+                    <td>28/05/2025 15:22</td>
+                    <td>1.000.000 VND</td>
+                    <td class="paid">Đã thanh toán</td>
+                    <td><a href="#" class="view-btn">👁️</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="noResults" class="no-results" style="display: none;">Không tìm thấy kết quả</div>
+    </div>
+
+    <script>
+        function searchTable() {
+            const input = document.getElementById('searchInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const table = document.getElementById('invoiceTable');
+            const rows = table.getElementsByTagName('tr');
+            const noResults = document.getElementById('noResults');
+            const inputValue = input.value.toLowerCase();
+
+            // Xóa hiệu ứng lỗi ban đầu
+            input.classList.remove('error');
+            errorMessage.classList.remove('show');
+
+            // Kiểm tra nếu nhấn "Xác nhận" mà không nhập gì
+            if (inputValue === '' && event.type === 'click') {
+                input.classList.add('error');
+                errorMessage.classList.add('show');
+                return; // Dừng hàm nếu không nhập
+            }
+
+            let found = false;
+
+            // Lọc bảng
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                if (cells.length > 0) {
+                    const tableData = cells[0].textContent.toLowerCase(); // Cột số bàn
+                    if (tableData.includes(inputValue)) {
+                        rows[i].style.display = '';
+                        found = true;
+                    } else {
+                        rows[i].style.display = 'none';
+                    }
+                }
+            }
+
+            // Hiển thị thông báo nếu không tìm thấy kết quả
+            if (!found && inputValue !== '') {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+
+        document.querySelectorAll('#invoiceTable td:nth-child(5)').forEach(td => {
+            if (td.textContent.trim().toLowerCase() === 'Đã thanh toán') {
+                td.classList.add('paid');
+            }
+        });
+
+        function toggleDropdown() {
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            dropdownMenu.classList.toggle('show');
+        }
+
+        // Đóng menu khi click ra ngoài
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown')) {
+                const dropdowns = document.getElementsByClassName('dropdown-menu');
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
