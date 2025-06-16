@@ -151,10 +151,69 @@
             font-size: 2rem;
             color: #0d6efd;
         }
+        /* Popup xác nhận xóa */
+        #confirmDeleteModal .modal-footer {
+            justify-content: flex-end !important;
+            gap: 16px;
+        }
+        #confirmDeleteModal .btn-delete {
+            background: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            min-width: 120px;
+            padding: 8px 24px;
+            transition: background 0.2s;
+            flex: 1 1 0;
+            max-width: 140px;
+            text-align: center;
+        }
+        #confirmDeleteModal .btn-delete:hover {
+            background: #217dbb;
+            color: #fff;
+        }
+        #confirmDeleteModal .btn-cancel {
+            background: #fff;
+            color: #222;
+            border: 1px solid #bfc7ce;
+            border-radius: 10px;
+            font-weight: 500;
+            min-width: 120px;
+            padding: 8px 24px;
+            transition: background 0.2s, color 0.2s;
+            flex: 1 1 0;
+            max-width: 140px;
+            text-align: center;
+        }
+        #confirmDeleteModal .btn-cancel:hover {
+            background: #f1f1f1;
+            color: #000;
+        }
+        #confirmDeleteModal .modal-footer {
+            display: flex;
+        }
+        /* Popup thông báo xóa thành công */
+        #successModal .modal-footer {
+            justify-content: center !important;
+        }
+        #successModal .btn-success-modal {
+            background: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            min-width: 120px;
+            padding: 8px 24px;
+            font-weight: 500;
+            text-align: center;
+        }
+        #successModal .btn-success-modal:hover {
+            background: #217dbb;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
-    <!-- Navbar: bôi nền Quản lý -->
     <nav class="navbar navbar-expand-md fixed-top py-3" id="mainNav">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
@@ -171,7 +230,6 @@
                         <a class="nav-link" href="#" role="button">Thanh toán</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <!-- Thêm active cho dropdown-toggle -->
                         <a class="nav-link dropdown-toggle active" href="#" role="button" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="false">Quản lý</a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
                             <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
@@ -185,18 +243,17 @@
             </div>
         </div>
     </nav>
-
     <div class="container mt-5 pt-5">
         <h2 class="title-nhanvien">QUẢN LÝ NHÂN VIÊN</h2>
         <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
             <a href="themnhanvien.html"><button class="btn btn-custom mb-2">Thêm mới nhân viên</button></a>
             <div class="input-group" style="max-width: 350px;">
-                <input class="form-control" type="text" placeholder="Nhập mã nhân viên">
-                <button class="btn btn-dark" style="background-color: #1b1d4a; border-top-right-radius: 10px;border-bottom-right-radius: 10px">Xác nhận</button>
+                <input class="form-control" type="text" placeholder="Nhập mã nhân viên" id="inputSearchMaNV">
+                <button class="btn btn-dark" style="background-color: #1b1d4a; border-top-right-radius: 10px;border-bottom-right-radius: 10px" id="btnSearchMaNV">Xác nhận</button>
             </div>
         </div>
         <div class="table-responsive bg-white rounded shadow-sm">
-            <table class="table align-middle mb-0">
+            <table class="table align-middle mb-0" id="nhanVienTable">
                 <thead class="table-light">
                     <tr>
                         <th>Mã nhân viên</th>
@@ -206,22 +263,12 @@
                         <th>Thao tác</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>NV001</td>
-                        <td>Nguyễn Văn A</td>
-                        <td>Thu ngân</td>
-                        <td>01/02/2005</td>
-                        <td>
-                            <a href="ChinhSuaNhanVien.html"><i class="fa-solid fa-pen-to-square text-warning me-2"></i></a>
-                            <i class="fa-solid fa-trash text-danger delete-btn"></i>
-                        </td>
-                    </tr>
+                <tbody id="nhanVienTableBody">
+                    <!-- Dữ liệu nhân viên sẽ được render tại đây -->
                 </tbody>
             </table>
         </div>
     </div>
-
     <!-- Modal xác nhận xóa -->
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -231,53 +278,101 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center;" class="modal-body">
-    <p style="font-size: 40px; margin-right: 15px;">
-        <i class="fa-solid fa-triangle-exclamation text-warning"></i>
-    </p>
-    <p>Bạn có chắc chắn muốn xóa nhân viên này không?<br>Hành động này sẽ không thể hoàn tác</p>
-</div>
+                    <p style="font-size: 40px; margin-right: 15px;">
+                        <i class="fa-solid fa-triangle-exclamation text-warning"></i>
+                    </p>
+                    <p>Bạn có chắc chắn muốn xóa nhân viên này không?<br>Hành động này sẽ không thể hoàn tác</p>
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+                    <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-delete" id="confirmDeleteBtn">Xác nhận</button>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Modal thông báo thành công -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><b>Xóa Nhân Viên</b></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body d-flex align-items-center justify-content-center">
-                <i class="fa-solid fa-circle-check fs-1 me-3 modal-success-icon"></i>
-                <span class="fs-5">Xóa thông tin nhân viên thành công!</span>
-            </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Xác nhận</button>
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><b>Xóa Nhân Viên</b></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <i class="fa-solid fa-circle-check fs-1 me-3 modal-success-icon"></i>
+                    <span class="fs-5">Xóa thông tin nhân viên thành công!</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success-modal" data-bs-dismiss="modal">Xác nhận</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        let currentRowToDelete = null;
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                currentRowToDelete = this.closest('tr');
-                new bootstrap.Modal(document.getElementById('confirmDeleteModal')).show();
+        // Hiển thị danh sách nhân viên từ localStorage
+        function renderNhanVienTable(filterMaNV = "") {
+            const tbody = document.getElementById('nhanVienTableBody');
+            let nhanViens = JSON.parse(localStorage.getItem('nhanViens') || '[]');
+            // Nếu có filter thì lọc theo mã NV
+            if (filterMaNV.trim() !== "") {
+                nhanViens = nhanViens.filter(nv => nv.maNV.toLowerCase().includes(filterMaNV.toLowerCase()));
+            }
+            tbody.innerHTML = "";
+            if (!nhanViens.length) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-secondary">Chưa có nhân viên nào</td></tr>`;
+                return;
+            }
+            for (let nv of nhanViens) {
+                tbody.innerHTML += `
+                    <tr data-manv="${nv.maNV}">
+                        <td>${nv.maNV}</td>
+                        <td>${nv.hoVaTen}</td>
+                        <td>${nv.viTriLamViec || ""}</td>
+                        <td>${nv.ngayLamViec ? new Date(nv.ngayLamViec).toLocaleDateString('vi-VN') : ""}</td>
+                        <td>
+                            <a href="ChinhSuaNhanVien.html?manv=${nv.maNV}"><i class="fa-solid fa-pen-to-square text-warning me-2"></i></a>
+                            <i class="fa-solid fa-trash text-danger delete-btn" style="cursor:pointer"></i>
+                        </td>
+                    </tr>
+                `;
+            }
+            // Gắn lại sự kiện xóa cho các nút xóa
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.onclick = function (ev) {
+                    currentRowToDelete = this.closest('tr');
+                    new bootstrap.Modal(document.getElementById('confirmDeleteModal')).show();
+                }
             });
-        });
+        }
 
-        document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
-            if (currentRowToDelete) {
-                currentRowToDelete.remove();
-                bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal')).hide();
-                new bootstrap.Modal(document.getElementById('successModal')).show();
+        // Xử lý xóa nhân viên
+        let currentRowToDelete = null;
+        document.addEventListener("DOMContentLoaded", function () {
+            renderNhanVienTable();
+
+            document.getElementById('btnSearchMaNV').onclick = function() {
+                const ma = document.getElementById('inputSearchMaNV').value;
+                renderNhanVienTable(ma);
+            };
+
+            document.getElementById('inputSearchMaNV').addEventListener('keypress', function(e){
+                if (e.key === "Enter") {
+                    document.getElementById('btnSearchMaNV').click();
+                }
+            });
+
+            // Xác nhận xóa
+            document.getElementById('confirmDeleteBtn').onclick = function () {
+                if (currentRowToDelete) {
+                    let maNV = currentRowToDelete.getAttribute('data-manv');
+                    let nhanViens = JSON.parse(localStorage.getItem('nhanViens') || '[]');
+                    nhanViens = nhanViens.filter(nv => nv.maNV !== maNV);
+                    localStorage.setItem('nhanViens', JSON.stringify(nhanViens));
+                    renderNhanVienTable();
+                    bootstrap.Modal.getInstance(document.getElementById('confirmDeleteModal')).hide();
+                    new bootstrap.Modal(document.getElementById('successModal')).show();
+                }
             }
         });
     </script>
