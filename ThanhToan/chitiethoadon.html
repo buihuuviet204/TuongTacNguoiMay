@@ -122,7 +122,7 @@
 
         .section-card {
             height: 574px;
-            background: #A8BECE;
+            background: white;
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -190,7 +190,7 @@
         }
 
         .total-amount {
-            background: white;
+            background: #f8f9fa;
             border-radius: 10px;
             padding: 15px;
             text-align: center;
@@ -373,7 +373,6 @@
         }
 
         /* Thêm CSS cho modal và overlay */
-        /* Thêm vào phần CSS hiện có */
         .overlay {
             position: fixed;
             top: 0;
@@ -381,11 +380,9 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
-            /* Màu mờ đậm hơn */
             display: none;
             z-index: 1000;
             backdrop-filter: blur(2px);
-            /* Hiệu ứng làm mờ giao diện */
         }
 
         .modal {
@@ -394,17 +391,13 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: linear-gradient(135deg, #ffffff, #f0f4f8);
-            /* Gradient background */
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            /* Bóng đổ đẹp hơn */
             z-index: 1001;
             text-align: center;
             width: 350px;
-            /* Độ rộng hợp lý */
             animation: fadeIn 0.3s ease-in-out;
-            /* Hiệu ứng fade-in */
         }
 
         @keyframes fadeIn {
@@ -412,7 +405,6 @@
                 opacity: 0;
                 transform: translate(-50%, -60%);
             }
-
             to {
                 opacity: 1;
                 transform: translate(-50%, -50%);
@@ -496,15 +488,15 @@
                 flex-direction: column;
                 gap: 20px;
             }
-
+            
             .payment-buttons {
                 flex-direction: column;
             }
-
+            
             .action-buttons {
                 flex-direction: column;
             }
-
+            
             .section-card {
                 padding: 20px;
             }
@@ -665,112 +657,116 @@
         crossorigin="anonymous"></script>
 
     <script>
-    const totalAmount = 1000000; // Tổng tiền cần thanh toán
-    let invoiceStatus = "chưa thanh toán"; // Trạng thái hóa đơn ban đầu
+        const totalAmount = 1000000; // Tổng tiền cần thanh toán
+        let invoiceStatus = localStorage.getItem('invoiceStatus_111121') || "chưa thanh toán"; // Lấy trạng thái từ localStorage
 
-    function selectPayment(method) {
-        const buttons = document.querySelectorAll('.payment-btn');
-        const qrSection = document.getElementById('qr-section');
-        const cashSection = document.getElementById('cash-section');
-        
-        buttons.forEach(btn => btn.classList.remove('active'));
-        
-        if (method === 'bank') {
-            buttons[0].classList.add('active');
-            qrSection.style.display = 'block';
-            cashSection.style.display = 'none';
-        } else {
-            buttons[1].classList.add('active');
-            qrSection.style.display = 'none';
-            cashSection.style.display = 'block';
-        }
-    }
-    
-    // Tính toán số tiền trả lại
-    document.addEventListener('DOMContentLoaded', function() {
-        const customerAmountInput = document.getElementById('customerAmount');
-        const changeAmountSpan = document.getElementById('changeAmount');
-        const statusElement = document.querySelector('.invoice-info p:last-child'); // Lấy phần tử trạng thái
-        
-        if (customerAmountInput) {
-            customerAmountInput.addEventListener('input', function() {
-                const customerAmount = parseFloat(this.value.replace(/[^0-9]/g, '')) || 0;
-                const change = customerAmount - totalAmount;
-                
-                if (change >= 0) {
-                    changeAmountSpan.textContent = formatNumber(change) + ' VND';
-                    changeAmountSpan.style.color = '#27ae60';
-                } else {
-                    changeAmountSpan.textContent = '0 VND';
-                    changeAmountSpan.style.color = '#e74c3c';
-                }
-            });
+        function selectPayment(method) {
+            const buttons = document.querySelectorAll('.payment-btn');
+            const qrSection = document.getElementById('qr-section');
+            const cashSection = document.getElementById('cash-section');
             
-            // Format input as currency
-            customerAmountInput.addEventListener('blur', function() {
-                const value = parseFloat(this.value.replace(/[^0-9]/g, ''));
-                if (!isNaN(value)) {
-                    this.value = formatNumber(value);
-                }
-            });
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (method === 'bank') {
+                buttons[0].classList.add('active');
+                qrSection.style.display = 'block';
+                cashSection.style.display = 'none';
+            } else {
+                buttons[1].classList.add('active');
+                qrSection.style.display = 'none';
+                cashSection.style.display = 'block';
+            }
+        }
+        
+        // Tính toán số tiền trả lại
+        document.addEventListener('DOMContentLoaded', function() {
+            const customerAmountInput = document.getElementById('customerAmount');
+            const changeAmountSpan = document.getElementById('changeAmount');
+            const statusElement = document.querySelector('.invoice-info p:last-child');
+            
+            if (customerAmountInput) {
+                customerAmountInput.addEventListener('input', function() {
+                    const customerAmount = parseFloat(this.value.replace(/[^0-9]/g, '')) || 0;
+                    const change = customerAmount - totalAmount;
+                    
+                    if (change >= 0) {
+                        changeAmountSpan.textContent = formatNumber(change) + ' VND';
+                        changeAmountSpan.style.color = '#27ae60';
+                    } else {
+                        changeAmountSpan.textContent = '0 VND';
+                        changeAmountSpan.style.color = '#e74c3c';
+                    }
+                });
+                
+                // Format input as currency
+                customerAmountInput.addEventListener('blur', function() {
+                    const value = parseFloat(this.value.replace(/[^0-9]/g, ''));
+                    if (!isNaN(value)) {
+                        this.value = formatNumber(value);
+                    }
+                });
+            }
+
+            // Cập nhật trạng thái hóa đơn khi tải trang
+            updateStatusDisplay();
+        });
+        
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
 
-        // Cập nhật trạng thái hóa đơn khi tải trang
-        updateStatusDisplay();
-    });
-    
-    function formatNumber(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
+        // Hàm hiển thị modal xác nhận
+        function showConfirmation() {
+            const overlay = document.getElementById('overlay');
+            const modal = document.getElementById('confirmationModal');
+            overlay.style.display = 'block';
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Ngăn cuộn trang
+        }
 
-    // Hàm hiển thị modal xác nhận
-    function showConfirmation() {
-        const overlay = document.getElementById('overlay');
-        const modal = document.getElementById('confirmationModal');
-        overlay.style.display = 'block';
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Ngăn cuộn trang
-    }
+        // Hàm ẩn modal xác nhận
+        function hideConfirmation() {
+            const overlay = document.getElementById('overlay');
+            const modal = document.getElementById('confirmationModal');
+            overlay.style.display = 'none';
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Cho phép cuộn trang
+        }
 
-    // Hàm ẩn modal xác nhận
-    function hideConfirmation() {
-        const overlay = document.getElementById('overlay');
-        const modal = document.getElementById('confirmationModal');
-        overlay.style.display = 'none';
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Cho phép cuộn trang
-    }
-
-    // Hàm xác nhận thanh toán và chuyển trang
+        // Hàm xác nhận thanh toán và cập nhật trạng thái
         function confirmPayment() {
             const customerAmountInput = document.getElementById('customerAmount');
             const customerAmount = parseFloat(customerAmountInput.value.replace(/[^0-9]/g, '')) || 0;
             const change = 1;
 
-            if (change >= 0) { // Giả định thanh toán đủ
-                invoiceStatus = "đã thanh toán";
-                updateStatusDisplay(); // Cập nhật trạng thái trên trang hiện tại
+            if (change >= 0) {
+                invoiceStatus = "đã thanh toán"; // Cập nhật trạng thái
+                localStorage.setItem('invoiceStatus_111121', invoiceStatus); // Lưu vào localStorage
+                updateStatusDisplay(); // Cập nhật giao diện
                 alert('Thanh toán thành công! Chuyển đến danh sách hóa đơn.');
                 hideConfirmation();
                 // Chuyển sang trang danh sách hóa đơn
                 window.location.href = 'thanhtoan.html';
+            } else {
+                alert('Số tiền thanh toán không đủ. Vui lòng kiểm tra lại!');
+                hideConfirmation();
             }
         }
 
-    // Hàm cập nhật hiển thị trạng thái
-    function updateStatusDisplay() {
-        const statusElement = document.querySelector('.invoice-info p:last-child');
-        if (statusElement) {
-            statusElement.textContent = `Trạng thái: ${invoiceStatus}`;
-            statusElement.style.color = invoiceStatus === "đã thanh toán" ? "#27ae60" : "#495057"; // Màu xanh cho "đã thanh toán"
+        // Hàm cập nhật hiển thị trạng thái
+        function updateStatusDisplay() {
+            const statusElement = document.querySelector('.invoice-info p:last-child');
+            if (statusElement) {
+                statusElement.textContent = `Trạng thái: ${invoiceStatus}`;
+                statusElement.style.color = invoiceStatus === "đã thanh toán" ? "#27ae60" : "#495057"; // Màu xanh cho "đã thanh toán"
+            }
         }
-    }
 
-    // Hàm quay lại trang thanhtoan.html
-    function goBack() {
-        window.location.href = 'thanhtoan.html'; // Điều hướng về trang thanhtoan.html
-    }
-</script>
+        // Hàm quay lại trang thanhtoan.html
+        function goBack() {
+            window.location.href = 'thanhtoan.html'; // Điều hướng về trang thanhtoan.html
+        }
+    </script>
 </body>
 
 </html>
