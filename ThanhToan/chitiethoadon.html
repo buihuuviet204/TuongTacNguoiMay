@@ -122,7 +122,7 @@
 
         .section-card {
             height: 574px;
-            background: white;
+            background: #A8BECE;
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -190,7 +190,7 @@
         }
 
         .total-amount {
-            background: #f8f9fa;
+            background: white;
             border-radius: 10px;
             padding: 15px;
             text-align: center;
@@ -735,22 +735,13 @@
 
         // Hàm xác nhận thanh toán và cập nhật trạng thái
         function confirmPayment() {
-            const customerAmountInput = document.getElementById('customerAmount');
-            const customerAmount = parseFloat(customerAmountInput.value.replace(/[^0-9]/g, '')) || 0;
-            const change = 1;
-
-            if (change >= 0) {
-                invoiceStatus = "đã thanh toán"; // Cập nhật trạng thái
-                localStorage.setItem('invoiceStatus_111121', invoiceStatus); // Lưu vào localStorage
-                updateStatusDisplay(); // Cập nhật giao diện
-                alert('Thanh toán thành công! Chuyển đến danh sách hóa đơn.');
-                hideConfirmation();
-                // Chuyển sang trang danh sách hóa đơn
-                window.location.href = 'thanhtoan.html';
-            } else {
-                alert('Số tiền thanh toán không đủ. Vui lòng kiểm tra lại!');
-                hideConfirmation();
-            }
+            invoiceStatus = "đã thanh toán"; // Cập nhật trạng thái
+            localStorage.setItem('invoiceStatus_111121', invoiceStatus); // Lưu vào localStorage
+            updateStatusDisplay(); // Cập nhật giao diện
+            alert('Thanh toán thành công!');
+            hideConfirmation();
+            // Chuyển sang trang danh sách hóa đơn
+            window.location.href = 'thanhtoan.html';
         }
 
         // Hàm cập nhật hiển thị trạng thái
