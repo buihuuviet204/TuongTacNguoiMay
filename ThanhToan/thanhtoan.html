@@ -251,7 +251,6 @@
         }
 
         @media (max-width: 768px) {
-            
             .search-bar {
                 flex-direction: column;
                 gap: 10px;
@@ -305,7 +304,6 @@
         </div>
     </nav>
 
-
     <div class="search_container">
         <div class="search-bar">
             <h2><b>DANH SÁCH HÓA ĐƠN</b></h2>
@@ -340,7 +338,7 @@
                     <td>11121</td>
                     <td>28/05/2025 14:09</td>
                     <td>1.000.000 VND</td>
-                    <td>Chưa thanh toán</td>
+                    <td id="status_11121">Chưa thanh toán</td>
                     <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
@@ -348,7 +346,7 @@
                     <td>11112</td>
                     <td>28/05/2025 14:10</td>
                     <td>1.000.000 VND</td>
-                    <td>Chưa thanh toán</td>
+                    <td id="status_11112">Chưa thanh toán</td>
                     <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
@@ -356,7 +354,7 @@
                     <td>11113</td>
                     <td>28/05/2025 14:11</td>
                     <td>1.000.000 VND</td>
-                    <td>Chưa thanh toán</td>
+                    <td id="status_11113">Chưa thanh toán</td>
                     <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
@@ -364,7 +362,7 @@
                     <td>11114</td>
                     <td>28/05/2025 14:20</td>
                     <td>1.000.000 VND</td>
-                    <td>Chưa thanh toán</td>
+                    <td id="status_11114">Chưa thanh toán</td>
                     <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
@@ -372,7 +370,7 @@
                     <td>11115</td>
                     <td>28/05/2025 14:22</td>
                     <td>1.000.000 VND</td>
-                    <td>Chưa thanh toán</td>
+                    <td id="status_11115">Chưa thanh toán</td>
                     <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
@@ -380,7 +378,7 @@
                     <td>11116</td>
                     <td>28/05/2025 14:30</td>
                     <td>1.000.000 VND</td>
-                    <td>Chưa thanh toán</td>
+                    <td id="status_11116">Chưa thanh toán</td>
                     <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
@@ -388,7 +386,7 @@
                     <td>11117</td>
                     <td>28/05/2025 14:33</td>
                     <td>1.000.000 VND</td>
-                    <td>Chưa thanh toán</td>
+                    <td id="status_11117">Chưa thanh toán</td>
                     <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
@@ -396,7 +394,7 @@
                     <td>11111</td>
                     <td>28/05/2025 14:42</td>
                     <td>1.000.000 VND</td>
-                    <td>Chưa thanh toán</td>
+                    <td id="status_11111">Chưa thanh toán</td>
                     <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
@@ -404,7 +402,7 @@
                     <td>11119</td>
                     <td>28/05/2025 15:20</td>
                     <td>1.000.000 VND</td>
-                    <td>Chưa thanh toán</td>
+                    <td id="status_11119">Chưa thanh toán</td>
                     <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
                 <tr>
@@ -412,7 +410,7 @@
                     <td>11120</td>
                     <td>28/05/2025 15:22</td>
                     <td>1.000.000 VND</td>
-                    <td class="paid">Đã thanh toán</td>
+                    <td id="status_11120">Chưa thanh toán</td>
                     <td><a href="chitiethoadon.html" class="view-btn" style="margin-left: 20px;"><i class="bi bi-eye" style="color: black;"></i></a></td>
                 </tr>
             </tbody>
@@ -464,9 +462,31 @@
             }
         }
 
-        document.querySelectorAll('#invoiceTable td:nth-child(5)').forEach(td => {
-            if (td.textContent.trim().toLowerCase() === 'Đã thanh toán') {
-                td.classList.add('paid');
+        // Cập nhật trạng thái từ localStorage khi tải trang
+        document.addEventListener('DOMContentLoaded', function() {
+            const invoices = {
+                '11121': 'status_11121',
+                '11112': 'status_11112',
+                '11113': 'status_11113',
+                '11114': 'status_11114',
+                '11115': 'status_11115',
+                '11116': 'status_11116',
+                '11117': 'status_11117',
+                '11111': 'status_11111',
+                '11119': 'status_11119',
+                '11120': 'status_11120'
+            };
+
+            for (let invoiceId in invoices) {
+                const status = localStorage.getItem(`invoiceStatus_${invoiceId}`) || 'Chưa thanh toán';
+                const statusElement = document.getElementById(invoices[invoiceId]);
+                if (statusElement) {
+                    statusElement.textContent = status;
+                    statusElement.classList.remove('paid');
+                    if (status.toLowerCase() === 'đã thanh toán') {
+                        statusElement.classList.add('paid');
+                    }
+                }
             }
         });
 
