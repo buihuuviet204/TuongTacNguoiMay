@@ -21,6 +21,7 @@
             background-color: #A8BECE;
             min-height: 50vh;
             margin-top: 90px;
+            overflow: hidden;
         }
 
         /* header */
@@ -110,6 +111,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            padding-top: 0px;
         }
 
         .invoice-section {
@@ -121,11 +123,11 @@
         }
 
         .section-card {
-            height: 574px;
+            height: 500px;
             background: #A8BECE;
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */
             margin-bottom: 20px;
         }
 
@@ -140,9 +142,10 @@
 
         .invoice-info {
             background: #f8f9fa;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 45px;
         }
 
         .invoice-info p {
@@ -159,6 +162,9 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .invoice-table th {
@@ -179,8 +185,7 @@
         }
 
         .invoice-table td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #e9ecef;
+            padding: 8px 10px;
             color: #495057;
             font-size: 14px;
         }
@@ -193,11 +198,11 @@
             background: white;
             border-radius: 10px;
             padding: 15px;
-            text-align: center;
+            text-align: right;
             font-size: 18px;
             font-weight: bold;
             color: #27ae60;
-            margin-top: 30px;
+            margin-top: 45px;
         }
 
         .payment-methods {
@@ -310,7 +315,7 @@
             font-size: 18px;
             font-weight: bold;
             color: #2c3e50;
-            text-align: center;
+            text-align: left;
             border: 2px solid #e9ecef;
         }
 
@@ -363,12 +368,12 @@
 
         .btn-back {
             background: transparent;
-            color: #6c757d;
-            border: 2px solid #6c757d;
+            color: #545a60;
+            border: 2px solid #545a60;
         }
 
         .btn-back:hover {
-            background: #6c757d;
+            background: #545a60;
             color: white;
         }
 
@@ -396,8 +401,10 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
             z-index: 1001;
             text-align: center;
-            width: 350px;
+            width: 390px;
+            height: 235px;
             animation: fadeIn 0.3s ease-in-out;
+            overflow: hidden;
         }
 
         @keyframes fadeIn {
@@ -416,6 +423,9 @@
             color: #2c3e50;
             font-size: 20px;
             font-weight: 600;
+            text-align: left;
+            border-bottom: 1px solid black;
+            padding-bottom: 10px;
         }
 
         .modal p {
@@ -423,11 +433,12 @@
             color: #495057;
             font-size: 15px;
             line-height: 1.5;
+            text-align: left;
         }
 
         .modal-buttons {
             display: flex;
-            justify-content: center;
+            justify-content: right;
             gap: 15px;
         }
 
@@ -442,12 +453,15 @@
         }
 
         .modal-btn.cancel {
-            background: #6c757d;
-            color: white;
+            width: 117px;
+            background: transparent;
+            color: #545a60;
+            border: 2px solid #545a60;
         }
 
         .modal-btn.cancel:hover {
-            background: #5a6268;
+            background: #545a60;
+            color: white;
             transform: translateY(-2px);
             box-shadow: 0 2px 10px rgba(108, 117, 125, 0.3);
         }
@@ -545,7 +559,7 @@
                     <p><strong>Trạng thái:</strong> chưa thanh toán</p>
                 </div>
 
-                <p style="margin: 0px; font-weight: 600; color: #2c3e50;">Chi tiết hóa đơn:</p>
+                <p style="margin: 0px; font-weight: 600; color: #2c3e50; margin-bottom: 10px;">Chi tiết hóa đơn:</p>
                 <table class="invoice-table">
                     <thead>
                         <tr>
@@ -589,8 +603,8 @@
 
         <!-- Payment Section -->
         <div class="payment-section">
-            <div class="section-card" style="background: white; margin-left: 50px;">
-                <h2 class="section-title">Phương thức thanh toán</h2>
+            <h2 class="section-title" style="margin: 0px; margin-top: 30px; margin-bottom: 15px; margin-left: 50px;">Phương thức thanh toán</h2>
+            <div class="section-card" style="margin-left: 50px; background-color: white; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);">
                 <div class="payment-methods">
                     <div class="payment-buttons">
                         <button class="payment-btn active" onclick="selectPayment('bank')">
@@ -645,7 +659,7 @@
     <div class="overlay" id="overlay"></div>
     <div class="modal" id="confirmationModal" style="display: none;">
         <h3>Xác Nhận Thanh Toán</h3>
-        <p>Sau khi xác nhận, hóa đơn sẽ được cập nhật trạng thái thanh toán. Bạn có chắc chắn không?</p>
+        <p>Sau khi xác nhận, hóa đơn sẽ được đánh dấu là đã thanh toán. Hành động này không thể hoàn tác. Bạn có chắc chắn không?</p>
         <div class="modal-buttons">
             <button class="modal-btn cancel" onclick="hideConfirmation()">Hủy</button>
             <button class="modal-btn confirm" onclick="confirmPayment()">Xác nhận</button>
