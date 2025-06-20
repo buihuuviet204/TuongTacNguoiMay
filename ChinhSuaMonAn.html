@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1024">
+    <title>SỬA THÔNG TIN MÓN ĂN - Quán ăn bình yên</title>
+    <!-- Sử dụng đúng file bootstrap nội bộ -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            background-color: #A8BECE;
+            font-family: "Inter", sans-serif;
+        }
+        body {
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #F8F9FA !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,.03);
+        }
+        .navbar-brand span {
+            font-weight: bold;
+            font-size: 1.45rem;
+            letter-spacing: 0.5px;
+        }
+        .navbar-nav .nav-link {
+            font-size: 1rem;
+            color: #000 !important;
+            opacity: 0.92;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
+            border-radius: 7px;
+            padding: 8px 16px !important;
+        }
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link:focus {
+            background: #e5eef3;
+            color: #4A9E9E !important;
+        }
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link[aria-current="page"] {
+            color: #000 !important;
+            font-weight: 700;
+            background: #e5eef3;
+        }
+        .navbar .btn-primary {
+            background-color: #A8BECE;
+            border: none;
+            color: #232323;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 8px 24px;
+            font-size: 15px;
+        }
+        .navbar .btn-primary:hover {
+            background: #88a6b8;
+        }
+        /* Dropdown hover giữ menu */
+        .navbar-nav .dropdown:hover > .dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+        .navbar-nav .dropdown-menu {
+            border-radius: 8px;
+            min-width: 180px;
+            background: #fff;
+            box-shadow: 0 6px 32px rgba(0,0,0,0.09);
+            border: 1px solid #eaeaea;
+        }
+        .navbar-nav .dropdown-item {
+            font-size: 1rem;
+            color: #000;
+            padding: 10px 18px;
+            border-radius: 6px;
+            transition: background 0.15s, color 0.15s;
+        }
+        .navbar-nav .dropdown-item:hover, .navbar-nav .dropdown-item:focus {
+            background: #e5eef3;
+            color: #4A9E9E;
+        }
+        .navbar-nav .dropdown-toggle::after {
+            margin-left: 6px;
+        }
+        /* Custom page styles */
+        .title-nhanvien {
+            font-size: 1.18rem;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1px;
+        }
+        .card {
+            border: none;
+            text-align: left;
+            background-color: #FFF;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 2px 12px rgba(120,150,170,0.08);
+            margin: 0 auto;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10%;
+            margin-top: 30px;
+            gap: 10px;
+        }
+        .btn-equal {
+            flex: 1;
+            max-width: 200px;
+        }
+        .text-error {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        input.form-control.is-invalid {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+        .input-group-vnd .form-control {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .input-group-vnd .input-group-text {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left: 0;
+            background-color: #e9ecef;
+            border-color: #ced4da;
+            color: #495057;
+        }
+        .image-upload-box {
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+        }
+        .image-upload-box:hover {
+            background-color: #e5eef3;
+        }
+        @media (max-width: 900px) {
+            .btn-container {
+                padding: 0 3%;
+            }
+            .card {
+                padding: 15px;
+                max-width: 97vw;
+            }
+        }
+        @media (max-width: 600px) {
+            .btn-container {
+                flex-direction: column;
+                padding: 0 0;
+            }
+            .btn-equal {
+                max-width: none;
+                width: 100%;
+            }
+            .card {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar giống hoàn toàn index.html -->
+    <nav class="navbar navbar-expand-md fixed-top py-3" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span>LOGO HERE</span>
+            </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
+                <span class="visually-hidden">Toggle navigation</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="order.html">Đặt món</a></li>
+                    <li class="nav-item"><a class="nav-link" href="thanhtoan.html">Thanh toán</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="false">Quản lý</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+                            <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
+                            <li><a class="dropdown-item" href="quanlymonan.html">Quản lý món ăn</a></li>
+                            <li><a class="dropdown-item" href="quanlykhachhang.html">Quản lý khách hàng</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="ThongKe.html">Thống kê</a></li>
+                </ul>
+                <a class="btn btn-primary shadow" role="button" href="index.html">Xin chào, User admin</a>
+            </div>
+        </div>
+    </nav>
+    <div style="margin-top:90px"></div>
+    <div class="container pt-2">
+        <h2 class="title-nhanvien">SỬA THÔNG TIN MÓN ĂN</h2>
+        <div class="card mt-4 shadow">
+            <form id="foodForm" novalidate>
+                <div class="mb-3">
+                    <label for="foodName" class="form-label">Tên món ăn:</label>
+                    <input type="text" class="form-control" id="foodName" value="Cơm tấm" required>
+                    <div id="foodNameError" class="text-error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="foodType" class="form-label">Loại món ăn:</label>
+                    <select class="form-control" id="foodType">
+                        <option value="Món chính" selected>Món chính</option>
+                        <option value="Món khai vị">Món khai vị</option>
+                        <option value="Món tráng miệng">Món tráng miệng</option>
+                        <option value="Đồ uống">Đồ uống</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="foodPrice" class="form-label">Giá bán:</label>
+                    <div class="input-group input-group-vnd">
+                        <input type="text" class="form-control" id="foodPrice" value="150.000" required>
+                        <span class="input-group-text">VND</span>
+                    </div>
+                    <div id="foodPriceError" class="text-error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="foodImage" class="form-label">Ảnh món ăn:</label>
+                    <div class="image-upload-box">
+                        <span>Ảnh món ăn</span>
+                        <input type="file" id="foodImage" class="d-none">
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button style="border-radius: 10px; background-color: #28a745; border-color: #28a745;" type="submit" class="btn btn-success btn-equal">Xác nhận</button>
+                    <button style="border-radius: 10px;" type="button" class="btn btn-danger btn-equal" id="cancelButton">Hủy bỏ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <div class="container py-4 py-lg-5">
+            <hr>
+            <div class="text-muted d-flex justify-content-between align-items-center pt-3">
+                <p class="mb-0">Copyright © 2025 Nhà hàng bình yên</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const foodName = document.getElementById("foodName");
+            const foodPrice = document.getElementById("foodPrice");
+            const foodImageUploadBox = document.querySelector(".image-upload-box");
+            const foodImageInput = document.getElementById("foodImage");
+            const cancelButton = document.getElementById("cancelButton");
+
+            foodName.classList.remove("is-invalid");
+            foodPrice.classList.remove("is-invalid");
+
+            foodName.addEventListener("blur", function () {
+                const error = document.getElementById("foodNameError");
+                if (this.value.trim() === "") {
+                    error.textContent = "Vui lòng nhập tên món ăn!";
+                    this.classList.add("is-invalid");
+                } else {
+                    error.textContent = "";
+                    this.classList.remove("is-invalid");
+                }
+            });
+
+            foodPrice.addEventListener("blur", function () {
+                const error = document.getElementById("foodPriceError");
+                const rawValue = this.value.replace(/\./g, '');
+                if (rawValue.trim() === "") {
+                    error.textContent = "Vui lòng nhập giá bán!";
+                    this.classList.add("is-invalid");
+                } else if (isNaN(rawValue)) {
+                    error.textContent = "Giá bán phải là số!";
+                    this.classList.add("is-invalid");
+                } else {
+                    error.textContent = "";
+                    this.classList.remove("is-invalid");
+                }
+            });
+
+            foodImageUploadBox.addEventListener("click", function() {
+                foodImageInput.click();
+            });
+
+            document.getElementById("foodForm").addEventListener("submit", function (e) {
+                e.preventDefault();
+                let valid = true;
+
+                if (foodName.value.trim() === "") {
+                    document.getElementById("foodNameError").textContent = "Vui lòng nhập tên món ăn!";
+                    foodName.classList.add("is-invalid");
+                    valid = false;
+                } else {
+                    document.getElementById("foodNameError").textContent = "";
+                    foodName.classList.remove("is-invalid");
+                }
+
+                const rawPriceValue = foodPrice.value.replace(/\./g, '');
+                if (rawPriceValue.trim() === "") {
+                    document.getElementById("foodPriceError").textContent = "Vui lòng nhập giá bán!";
+                    foodPrice.classList.add("is-invalid");
+                    valid = false;
+                } else if (isNaN(rawPriceValue)) {
+                    document.getElementById("foodPriceError").textContent = "Giá bán phải là số!";
+                    foodPrice.classList.add("is-invalid");
+                    valid = false;
+                } else {
+                    document.getElementById("foodPriceError").textContent = "";
+                    foodPrice.classList.remove("is-invalid");
+                }
+
+                if (valid) {
+                    alert("Thông tin món ăn đã được cập nhật thành công!");
+                    window.location.href = "quanlymonan.html";
+                }
+            });
+
+            cancelButton.addEventListener("click", function() {
+                window.location.href = "quanlymonan.html";
+            });
+        });
+    </script>
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

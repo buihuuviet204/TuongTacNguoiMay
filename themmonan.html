@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Thêm món ăn - Quán ăn bình yên</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #A8BECE;
+      font-family: "Inter", sans-serif;
+    }
+    * {
+      font-family: "Inter", sans-serif;
+      color: #000;
+    }
+    .navbar {
+      background-color: #F8F9FA !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,.03);
+    }
+    .navbar-brand span {
+      font-weight: bold;
+      font-size: 1.45rem;
+      letter-spacing: 0.5px;
+    }
+    .navbar-nav .nav-link {
+      font-size: 1rem;
+      color: #000 !important;
+      opacity: 0.92;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      border-radius: 7px;
+      padding: 8px 16px !important;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+      background: #e5eef3;
+      color: #4A9E9E !important;
+    }
+    .navbar-nav .nav-link.active,
+    .navbar-nav .dropdown.show > .nav-link.dropdown-toggle,
+    .navbar-nav .dropdown .nav-link.active {
+      color: #000 !important;
+      font-weight: 700;
+      background: #e5eef3;
+    }
+    .navbar .btn-primary {
+      background-color: #A8BECE;
+      border: none;
+      color: #232323;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 8px 24px;
+      font-size: 15px;
+    }
+    .navbar .btn-primary:hover {
+      background: #88a6b8;
+    }
+    .navbar-nav .dropdown:hover > .dropdown-menu {
+      display: block;
+      margin-top: 0;
+    }
+    .navbar-nav .dropdown-menu {
+      border-radius: 8px;
+      min-width: 180px;
+      background: #fff;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.09);
+      border: 1px solid #eaeaea;
+    }
+    .navbar-nav .dropdown-item {
+      font-size: 1rem;
+      color: #000;
+      padding: 10px 18px;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .navbar-nav .dropdown-item:hover, .navbar-nav .dropdown-item:focus {
+      background: #e5eef3;
+      color: #4A9E9E;
+    }
+    .navbar-nav .dropdown-toggle::after {
+      margin-left: 6px;
+    }
+    .card {
+      border: none;
+      text-align: left;
+      background-color: #FFF;
+      border-radius: 10px;
+      padding: 30px;
+      width: 100%;
+      max-width: 100%;
+    }
+    .title-monan {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20%;
+      margin-top: 30px;
+      gap: 10px;
+    }
+    .btn-equal {
+      flex: 1 1 0;
+      max-width: 200px;
+      min-width: 120px;
+      padding: 8px 24px;
+      text-align: center;
+      border-radius: 10px !important;
+    }
+    .text-error {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    input.form-control.is-invalid, select.form-control.is-invalid {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+    input.form-control, select.form-control {
+      border-radius: 10px !important;
+    }
+    /* Input group cho giá bán */
+    .input-group>.form-control {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+    .input-group .input-group-text {
+      background-color: #e9ecef;
+      border: 1px solid #ced4da;
+      border-top-right-radius: 10px !important;
+      border-bottom-right-radius: 10px !important;
+      color: #495057;
+      padding: .375rem .75rem;
+    }
+    /* Ảnh upload */
+    .image-upload-area {
+      border: 1px dashed #ced4da;
+      border-radius: 10px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      background-color: #f8f9fa;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 150px;
+    }
+    .image-upload-area input[type="file"] {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .image-upload-area .upload-icon {
+      font-size: 3rem;
+      color: #ced4da;
+      margin-bottom: 10px;
+    }
+    .image-upload-area .file-name {
+      font-size: 0.9rem;
+      color: #6c757d;
+      word-break: break-all;
+      text-align: center;
+      padding: 0 10px;
+    }
+    /* Modal styling */
+    .modal-footer.justify-content-center {
+      justify-content: flex-end !important;
+      gap: 16px;
+      display: flex;
+    }
+    #confirmAddBtn {
+      background: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 500;
+      min-width: 120px;
+      padding: 8px 24px;
+      transition: background 0.2s;
+      flex: 1 1 0;
+      max-width: 140px;
+      text-align: center;
+    }
+    #confirmAddBtn:hover {
+      background: #217dbb;
+      color: #fff;
+    }
+    #cancelAddBtn {
+      background: #fff;
+      color: #222;
+      border: 1px solid #bfc7ce;
+      border-radius: 10px;
+      font-weight: 500;
+      min-width: 120px;
+      padding: 8px 24px;
+      transition: background 0.2s, color 0.2s;
+      flex: 1 1 0;
+      max-width: 140px;
+      text-align: center;
+    }
+    #cancelAddBtn:hover {
+      background: #f1f1f1;
+      color: #000;
+    }
+    #successAddModal .modal-footer {
+      justify-content: center !important;
+    }
+    .modal-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .modal-success-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-success-icon {
+      font-size: 2rem;
+      color: #0d6efd;
+    }
+  </style>
+</head>
+<body>
+ <nav class="navbar navbar-expand-md fixed-top py-3" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <span>LOGO HERE</span>
+        </a>
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" role="button">Đặt món</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" role="button">Thanh toán</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" role="button" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="false">Quản lý</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+                        <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
+                        <li><a class="dropdown-item" href="quanlymonan.html">Quản lý món ăn</a></li>
+                        <li><a class="dropdown-item" href="quanlykhachhang.html">Quản lý khách hàng</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="ThongKe.html">Thống kê</a></li>
+            </ul>
+            <a style="background-color: #A8BECE; border-radius: 10px; border: 0;" class="btn btn-primary shadow" role="button" href="signup.html">Xin chào, User admin</a>
+        </div>
+    </div>
+</nav>
+
+  <div class="container pt-5 mt-5">
+    <h2 style="margin-bottom: 0;" class="title-monan">THÊM MÓN ĂN</h2>
+    <div class="card mt-4 shadow">
+      <form id="monAnForm" novalidate>
+        <div class="mb-3">
+          <label for="tenMonAn" class="form-label">Tên món ăn:</label>
+          <input type="text" class="form-control" id="tenMonAn" placeholder="Nhập tên món ăn" required>
+          <div id="tenMonAnError" class="text-error"></div>
+        </div>
+        <div class="mb-3">
+          <label for="loaiMonAn" class="form-label">Loại món ăn:</label>
+          <select class="form-select" id="loaiMonAn" required>
+            <option value="" disabled selected>Chọn loại món ăn</option>
+            <option value="Món chính">Món chính</option>
+            <option value="Đồ uống">Đồ uống</option>
+            <option value="Đồ ăn kèm">Đồ ăn kèm</option>
+            <option value="Combo">Combo</option>
+          </select>
+          <div id="loaiMonAnError" class="text-error"></div>
+        </div>
+        <div class="mb-3">
+          <label for="giaBan" class="form-label">Giá bán:</label>
+          <div class="input-group">
+            <input type="number" class="form-control" id="giaBan" placeholder="Nhập giá bán" min="0" required>
+            <span class="input-group-text">VND</span>
+          </div>
+          <div id="giaBanError" class="text-error"></div>
+        </div>
+        <div class="mb-3">
+          <label for="anhMonAn" class="form-label">Ảnh món ăn:</label>
+          <div class="image-upload-area" id="imageUploadArea">
+            <i class="fa-solid fa-upload upload-icon"></i>
+            <span class="file-name" id="selectedFileName"></span>
+            <input type="file" id="anhMonAn" accept="image/*">
+          </div>
+          <div id="anhMonAnError" class="text-error"></div>
+        </div>
+        <div class="btn-container">
+          <button style="border-radius: 10px;" type="submit" class="btn btn-success btn-equal">Xác nhận</button>
+          <button style="border-radius: 10px;" type="button" class="btn btn-danger btn-equal" id="cancelFormBtn">Hủy bỏ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal xác nhận thêm -->
+  <div class="modal fade" id="confirmAddModal" tabindex="-1" aria-labelledby="confirmAddLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="confirmAddLabel"><b>Thêm Món Ăn</b></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                  <p class="text-center">Bạn có chắc chắn muốn thêm món ăn này không?</p>
+              </div>
+              <div class="modal-footer justify-content-center">
+                  <button type="button" class="btn btn-secondary btn-equal" id="cancelAddBtn">Hủy</button>
+                  <button type="button" class="btn btn-equal" id="confirmAddBtn">Xác nhận</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Modal thông báo thành công -->
+  <div class="modal fade" id="successAddModal" tabindex="-1" aria-labelledby="successAddLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title"><b>Thêm Món Ăn</b></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body d-flex align-items-center justify-content-center">
+                  <i class="fa-solid fa-circle-check fs-1 me-3 modal-success-icon"></i>
+                  <span class="fs-5">Thêm món ăn thành công!</span>
+              </div>
+              <div class="modal-footer">
+                  <button style="background-color: #3498db; border-radius: 10px; color: #fff; border: 0; min-width: 120px; padding: 8px 24px;" type="button" class="btn btn-secondary" id="closeSuccessModal">Xác nhận</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Lưu dữ liệu món ăn vào localStorage với mã tự động
+    function saveMonAn(mon) {
+      let monAns = JSON.parse(localStorage.getItem('monAns') || '[]');
+      let lastCode = monAns.length ? monAns[monAns.length-1].maMonAn : "MA000";
+      let nextNum = parseInt(lastCode.replace("MA","")) + 1;
+      mon.maMonAn = "MA" + String(nextNum).padStart(3,'0');
+      monAns.push(mon);
+      localStorage.setItem('monAns', JSON.stringify(monAns));
+      return mon;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const tenMonAn = document.getElementById("tenMonAn");
+      const loaiMonAn = document.getElementById("loaiMonAn");
+      const giaBan = document.getElementById("giaBan");
+      const anhMonAn = document.getElementById("anhMonAn");
+      const selectedFileNameSpan = document.getElementById("selectedFileName");
+
+      tenMonAn.classList.remove("is-invalid");
+      loaiMonAn.classList.remove("is-invalid");
+      giaBan.classList.remove("is-invalid");
+
+      tenMonAn.addEventListener("blur", function () {
+        const error = document.getElementById("tenMonAnError");
+        if (this.value.trim() === "") {
+          error.textContent = "Vui lòng nhập tên món ăn!";
+          this.classList.add("is-invalid");
+        } else {
+          error.textContent = "";
+          this.classList.remove("is-invalid");
+        }
+      });
+
+      loaiMonAn.addEventListener("change", function () {
+        const error = document.getElementById("loaiMonAnError");
+        if (!this.value) {
+          error.textContent = "Vui lòng chọn loại món ăn!";
+          this.classList.add("is-invalid");
+        } else {
+          error.textContent = "";
+          this.classList.remove("is-invalid");
+        }
+      });
+
+      giaBan.addEventListener("blur", function () {
+        const error = document.getElementById("giaBanError");
+        let value = this.value.trim();
+        if (value === "") {
+          error.textContent = "Vui lòng nhập giá bán.";
+          this.classList.add("is-invalid");
+        } else if (isNaN(parseFloat(value)) || parseFloat(value) < 0) {
+          error.textContent = "Vui lòng nhập giá bán hợp lệ (số dương).";
+          this.classList.add("is-invalid");
+        } else {
+          error.textContent = "";
+          this.classList.remove("is-invalid");
+        }
+      });
+
+      giaBan.addEventListener("input", function () {
+        const error = document.getElementById("giaBanError");
+        let value = this.value.trim();
+        if (value === "" || isNaN(parseFloat(value)) || parseFloat(value) < 0) {
+          error.textContent = "Vui lòng nhập giá bán hợp lệ (số dương).";
+          this.classList.add("is-invalid");
+        } else {
+          error.textContent = "";
+          this.classList.remove("is-invalid");
+        }
+      });
+
+      anhMonAn.addEventListener("change", function () {
+        if (anhMonAn.files.length > 0) {
+          selectedFileNameSpan.textContent = anhMonAn.files[0].name;
+          document.getElementById("imageUploadArea").style.borderColor = "#ced4da";
+          document.getElementById("anhMonAnError").textContent = "";
+        } else {
+          selectedFileNameSpan.textContent = "";
+        }
+      });
+
+      let pendingData = null;
+
+      document.getElementById("monAnForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        let valid = true;
+
+        if (tenMonAn.value.trim() === "") {
+          document.getElementById("tenMonAnError").textContent = "Vui lòng nhập tên món ăn!";
+          tenMonAn.classList.add("is-invalid");
+          valid = false;
+        }
+        if (!loaiMonAn.value) {
+          document.getElementById("loaiMonAnError").textContent = "Vui lòng chọn loại món ăn!";
+          loaiMonAn.classList.add("is-invalid");
+          valid = false;
+        }
+        let v = giaBan.value.trim();
+        if (v === "" || isNaN(parseFloat(v)) || parseFloat(v) < 0) {
+          document.getElementById("giaBanError").textContent = "Vui lòng nhập giá bán hợp lệ (số dương).";
+          giaBan.classList.add("is-invalid");
+          valid = false;
+        }
+        if (anhMonAn.files.length === 0) {
+          document.getElementById("anhMonAnError").textContent = "Vui lòng chọn ảnh món ăn.";
+          document.getElementById("imageUploadArea").style.borderColor = "#dc3545";
+          valid = false;
+        }
+        if (!valid) return;
+
+        pendingData = {
+          tenMonAn: tenMonAn.value.trim(),
+          loaiMonAn: loaiMonAn.value,
+          giaBan: parseFloat(giaBan.value),
+          anhMonAn: anhMonAn.files.length > 0 ? anhMonAn.files[0].name : "Không có ảnh"
+        };
+
+        let modal = new bootstrap.Modal(document.getElementById('confirmAddModal'));
+        modal.show();
+      });
+
+      // Nếu xác nhận thêm
+      document.getElementById("confirmAddBtn").onclick = function() {
+        let mon = saveMonAn(pendingData);
+        bootstrap.Modal.getInstance(document.getElementById('confirmAddModal')).hide();
+        setTimeout(function() {
+          let modal = new bootstrap.Modal(document.getElementById('successAddModal'));
+          modal.show();
+        }, 350);
+      };
+
+      // Đóng popup thành công và chuyển về trang quản lý món ăn
+      document.getElementById("closeSuccessModal").onclick = function() {
+        bootstrap.Modal.getInstance(document.getElementById('successAddModal')).hide();
+        window.location.href = "quanlymonan.html";
+      };
+
+      // Nếu hủy thì chỉ đóng popup xác nhận, giữ nguyên form
+      document.getElementById("cancelAddBtn").onclick = function() {
+        bootstrap.Modal.getInstance(document.getElementById('confirmAddModal')).hide();
+      };
+
+      // Nút hủy chính trên form
+      document.getElementById("cancelFormBtn").onclick = function() {
+        window.location.href = "quanlymonan.html";
+      };
+    });
+  </script>
+</body>
+</html>

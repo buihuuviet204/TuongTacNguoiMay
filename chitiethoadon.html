@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách hóa đơn - Quán ăn bình yên</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <style>
+        /* CSS hiện có */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #A8BECE;
+            min-height: 50vh;
+            margin-top: 90px;
+            overflow: hidden;
+        }
+
+        /* header */
+        .navbar {
+            background-color: #F8F9FA !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .03);
+        }
+
+        .navbar-brand span {
+            font-weight: bold;
+            font-size: 1.45rem;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 1rem;
+            color: #000 !important;
+            opacity: 0.92;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
+            border-radius: 7px;
+            padding: 8px 16px !important;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link:focus {
+            background: #e5eef3;
+            color: #4A9E9E !important;
+        }
+
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link[aria-current="page"] {
+            color: #000 !important;
+            font-weight: 700;
+            background: #e5eef3;
+        }
+
+        .navbar .btn-primary {
+            background-color: #A8BECE;
+            border: none;
+            color: #232323;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 8px 24px;
+            font-size: 15px;
+        }
+
+        .navbar .btn-primary:hover {
+            background: #88a6b8;
+        }
+
+        .navbar-nav .dropdown:hover>.dropdown-menu {
+            display: block;
+            margin-top: 0;
+        }
+
+        .navbar-nav .dropdown-menu {
+            border-radius: 8px;
+            min-width: 180px;
+            background: #fff;
+            box-shadow: 0 6px 32px rgba(0, 0, 0, 0.09);
+            border: 1px solid #eaeaea;
+        }
+
+        .navbar-nav .dropdown-item {
+            font-size: 1rem;
+            color: #000;
+            padding: 10px 18px;
+            border-radius: 6px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .navbar-nav .dropdown-item:hover,
+        .navbar-nav .dropdown-item:focus {
+            background: #e5eef3;
+            color: #4A9E9E;
+        }
+
+        .navbar-nav .dropdown-toggle::after {
+            margin-left: 6px;
+        }
+
+        /* Main content */
+        .main-container {
+            display: flex;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 0px;
+        }
+
+        .invoice-section {
+            flex: 1;
+        }
+
+        .payment-section {
+            flex: 1;
+        }
+
+        .section-card {
+            height: 500px;
+            background: #A8BECE;
+            border-radius: 15px;
+            padding: 25px;
+            /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .invoice-info {
+            background: #f8f9fa;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 45px;
+        }
+
+        .invoice-info p {
+            margin: 8px 0;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .invoice-info strong {
+            color: #2c3e50;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .invoice-table th {
+            background: #E0E0E0;
+            color: black;
+            padding: 12px 8px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .invoice-table th:first-child {
+            border-top-left-radius: 8px;
+        }
+
+        .invoice-table th:last-child {
+            border-top-right-radius: 8px;
+        }
+
+        .invoice-table td {
+            padding: 8px 10px;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .invoice-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .total-amount {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            color: #27ae60;
+            margin-top: 45px;
+        }
+
+        .payment-methods {
+            text-align: center;
+        }
+
+        .payment-buttons {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+
+        .payment-btn {
+            background: #ffffff;
+            color: black;
+            border: 2px solid #333333;
+            padding: 5px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            max-width: 150px;
+        }
+
+        .payment-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+            color: white;
+            border: 2px solid #2980b9;
+        }
+
+        .payment-btn.active {
+            border: 2px solid #2F8AC7;
+        }
+
+        .qr-section {
+            margin: 25px 0;
+        }
+
+        .qr-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            border: 3px solid #3498db;
+            border-radius: 15px;
+            margin: 0 auto 15px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23f8f9fa"/><g fill="%23333"><rect x="5" y="5" width="15" height="15"/><rect x="25" y="5" width="5" height="5"/><rect x="35" y="5" width="5" height="5"/><rect x="45" y="5" width="15" height="15"/><rect x="65" y="5" width="5" height="5"/><rect x="75" y="5" width="15" height="15"/><rect x="5" y="15" width="5" height="5"/><rect x="15" y="15" width="5" height="5"/><rect x="25" y="15" width="5" height="5"/><rect x="35" y="15" width="5" height="5"/><rect x="45" y="15" width="5" height="5"/><rect x="55" y="15" width="5" height="5"/><rect x="75" y="15" width="5" height="5"/><rect x="85" y="15" width="5" height="5"/><rect x="5" y="25" width="5" height="5"/><rect x="15" y="25" width="5" height="5"/><rect x="25" y="25" width="15" height="5"/><rect x="45" y="25" width="5" height="5"/><rect x="55" y="25" width="5" height="5"/><rect x="65" y="25" width="5" height="5"/><rect x="75" y="25" width="5" height="5"/><rect x="85" y="25" width="5" height="5"/></g></svg>') center/contain no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .bank-info {
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .bank-info p {
+            margin: 5px 0;
+            color: #495057;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .bank-info .account-name {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 16px;
+        }
+
+        .cash-payment {
+            margin: 25px 0;
+        }
+
+        .payment-info {
+            text-align: left;
+        }
+
+        .amount-to-pay,
+        .customer-payment,
+        .change-amount {
+            margin-bottom: 20px;
+        }
+
+        .amount-to-pay p,
+        .customer-payment p,
+        .change-amount p {
+            font-size: 14px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .amount-display {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: left;
+            border: 2px solid #e9ecef;
+        }
+
+        .amount-input {
+            font-size: 16px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            background: #f8f9fa;
+        }
+
+        .amount-input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+            background: white;
+        }
+
+        .change-value {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-confirm {
+            background: #2980b9;
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-back {
+            background: transparent;
+            color: #545a60;
+            border: 2px solid #545a60;
+        }
+
+        .btn-back:hover {
+            background: #545a60;
+            color: white;
+        }
+
+        /* Thêm CSS cho modal và overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            z-index: 1000;
+            backdrop-filter: blur(2px);
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #ffffff, #f0f4f8);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            text-align: center;
+            width: 390px;
+            height: 235px;
+            animation: fadeIn 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .modal h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: left;
+            border-bottom: 1px solid black;
+            padding-bottom: 10px;
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            color: #495057;
+            font-size: 15px;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: right;
+            gap: 15px;
+        }
+
+        .modal-btn {
+            padding: 10px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.cancel {
+            width: 117px;
+            background: transparent;
+            color: #545a60;
+            border: 2px solid #545a60;
+        }
+
+        .modal-btn.cancel:hover {
+            background: #545a60;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 10px rgba(108, 117, 125, 0.3);
+        }
+
+        .modal-btn.confirm {
+            background: #2980b9;
+            color: white;
+        }
+
+        .modal-btn.confirm:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 10px rgba(41, 128, 185, 0.3);
+        }
+
+        @media (max-width: 400px) {
+            .modal {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .modal h3 {
+                font-size: 18px;
+            }
+
+            .modal p {
+                font-size: 14px;
+            }
+
+            .modal-btn {
+                padding: 8px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .payment-buttons {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .section-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md fixed-top py-3 menu" id="mainNav" style="background-color: #A8BECE;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <span>LOGO HERE</span>
+            </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span
+                    class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Đặt món</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Thanh toán</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink3"
+                            data-bs-toggle="dropdown" aria-expanded="false">Quản lý</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+                            <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
+                            <li><a class="dropdown-item" href="quanlymonan.html">Quản lý món ăn</a></li>
+                            <li><a class="dropdown-item" href="quanlykhachhang.html">Quản lý khách hàng</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="ThongKe.html">Thống kê</a></li>
+                </ul>
+                <a class="btn btn-primary shadow" role="button" href="index.html">Xin chào, User admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Invoice Section -->
+        <div class="invoice-section">
+            <div class="section-card">
+                <h2 class="section-title">Thông tin hóa đơn</h2>
+                <div class="invoice-info">
+                    <p><strong>Số hóa đơn:</strong> 111121</p>
+                    <p><strong>Số bàn:</strong> 8</p>
+                    <p><strong>Ngày đặt:</strong> 28/05/2025 14:09</p>
+                    <p><strong>Trạng thái:</strong> chưa thanh toán</p>
+                </div>
+
+                <p style="margin: 0px; font-weight: 600; color: #2c3e50; margin-bottom: 10px;">Chi tiết hóa đơn:</p>
+                <table class="invoice-table">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left;">STT</th>
+                            <th style="text-align: center;">Tên món</th>
+                            <th style="text-align: center;">Số lượng</th>
+                            <th style="text-align: right;">Giá bán</th>
+                            <th style="text-align: right;">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Cơm tấm</td>
+                            <td style="text-align: right; padding-right: 27px;">3</td>
+                            <td style="text-align: right;">150.000</td>
+                            <td style="text-align: right;">450.000</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Cơm gà</td>
+                            <td style="text-align: right; padding-right: 27px;">4</td>
+                            <td style="text-align: right;">100.000</td>
+                            <td style="text-align: right;">400.000</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Cơm rang</td>
+                            <td style="text-align: right; padding-right: 27px;">3</td>
+                            <td style="text-align: right;">50.000</td>
+                            <td style="text-align: right;">150.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="total-amount">
+                    Tổng tiền: 1.000.000 VND
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Section -->
+        <div class="payment-section">
+            <h2 class="section-title" style="margin: 0px; margin-top: 30px; margin-bottom: 15px; margin-left: 50px;">Phương thức thanh toán</h2>
+            <div class="section-card" style="margin-left: 50px; background-color: white; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);">
+                <div class="payment-methods">
+                    <div class="payment-buttons">
+                        <button class="payment-btn active" onclick="selectPayment('bank')">
+                            Chuyển khoản <br>qua ngân hàng
+                        </button>
+                        <button class="payment-btn" onclick="selectPayment('cash')">
+                            Thanh toán <br>bằng tiền mặt
+                        </button>
+                    </div>
+
+                    <div class="qr-section" id="qr-section">
+                        <p class="qr-title">Mã QR thanh toán</p>
+                        <div class="qr-code">
+                            <img src="d6e865c0-d163-4512-b833-259279938c9f.jpg" alt="QR"
+                                style="width: 200px; height: 200px;">
+                        </div>
+                        <div class="bank-info">
+                            <p class="account-name">NGUYEN TRONG NAM</p>
+                            <p class="account-number">52568368888 ♦ trgnam204</p>
+                        </div>
+                    </div>
+
+                    <div class="cash-payment" id="cash-section" style="display: none;">
+                        <div class="payment-info">
+                            <div class="amount-to-pay">
+                                <p>Số tiền khách hàng phải thanh toán là:</p>
+                                <div class="amount-display">1.000.000 VND</div>
+                            </div>
+
+                            <div class="customer-payment">
+                                <p>Số tiền khách hàng thanh toán:</p>
+                                <input type="text" class="form-control amount-input"
+                                    placeholder="Hãy nhập số tiền khách thanh toán" id="customerAmount">
+                            </div>
+
+                            <div class="change-amount">
+                                <p>Số tiền trả lại: <span id="changeAmount" class="change-value">0 VND</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="action-btn btn-confirm" onclick="showConfirmation()">Xác nhận</button>
+                        <button class="action-btn btn-back" onclick="goBack()">Quay lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay và Modal -->
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="confirmationModal" style="display: none;">
+        <h3>Xác Nhận Thanh Toán</h3>
+        <p>Sau khi xác nhận, hóa đơn sẽ được đánh dấu là đã thanh toán. Hành động này không thể hoàn tác. Bạn có chắc chắn không?</p>
+        <div class="modal-buttons">
+            <button class="modal-btn cancel" onclick="hideConfirmation()">Hủy</button>
+            <button class="modal-btn confirm" onclick="confirmPayment()">Xác nhận</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-N+3+iyOwF4Oh+UyZ77YQ1NmcZ0Kk4z3+UcBSAgW8r0z6u0XW3+5+5j9YdI+0E"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const totalAmount = 1000000; // Tổng tiền cần thanh toán
+        let invoiceStatus = localStorage.getItem('invoiceStatus_111121') || "chưa thanh toán"; // Lấy trạng thái từ localStorage
+
+        function selectPayment(method) {
+            const buttons = document.querySelectorAll('.payment-btn');
+            const qrSection = document.getElementById('qr-section');
+            const cashSection = document.getElementById('cash-section');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (method === 'bank') {
+                buttons[0].classList.add('active');
+                qrSection.style.display = 'block';
+                cashSection.style.display = 'none';
+            } else {
+                buttons[1].classList.add('active');
+                qrSection.style.display = 'none';
+                cashSection.style.display = 'block';
+            }
+        }
+        
+        // Tính toán số tiền trả lại
+        document.addEventListener('DOMContentLoaded', function() {
+            const customerAmountInput = document.getElementById('customerAmount');
+            const changeAmountSpan = document.getElementById('changeAmount');
+            const statusElement = document.querySelector('.invoice-info p:last-child');
+            
+            if (customerAmountInput) {
+                customerAmountInput.addEventListener('input', function() {
+                    const customerAmount = parseFloat(this.value.replace(/[^0-9]/g, '')) || 0;
+                    const change = customerAmount - totalAmount;
+                    
+                    if (change >= 0) {
+                        changeAmountSpan.textContent = formatNumber(change) + ' VND';
+                        changeAmountSpan.style.color = '#27ae60';
+                    } else {
+                        changeAmountSpan.textContent = '0 VND';
+                        changeAmountSpan.style.color = '#e74c3c';
+                    }
+                });
+                
+                // Format input as currency
+                customerAmountInput.addEventListener('blur', function() {
+                    const value = parseFloat(this.value.replace(/[^0-9]/g, ''));
+                    if (!isNaN(value)) {
+                        this.value = formatNumber(value);
+                    }
+                });
+            }
+
+            // Cập nhật trạng thái hóa đơn khi tải trang
+            updateStatusDisplay();
+        });
+        
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        // Hàm hiển thị modal xác nhận
+        function showConfirmation() {
+            const overlay = document.getElementById('overlay');
+            const modal = document.getElementById('confirmationModal');
+            overlay.style.display = 'block';
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Ngăn cuộn trang
+        }
+
+        // Hàm ẩn modal xác nhận
+        function hideConfirmation() {
+            const overlay = document.getElementById('overlay');
+            const modal = document.getElementById('confirmationModal');
+            overlay.style.display = 'none';
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Cho phép cuộn trang
+        }
+
+        // Hàm xác nhận thanh toán và cập nhật trạng thái
+        function confirmPayment() {
+            invoiceStatus = "đã thanh toán"; // Cập nhật trạng thái
+            localStorage.setItem('invoiceStatus_111121', invoiceStatus); // Lưu vào localStorage
+            updateStatusDisplay(); // Cập nhật giao diện
+            alert('Thanh toán thành công!');
+            hideConfirmation();
+            // Chuyển sang trang danh sách hóa đơn
+            window.location.href = 'thanhtoan.html';
+        }
+
+        // Hàm cập nhật hiển thị trạng thái
+        function updateStatusDisplay() {
+            const statusElement = document.querySelector('.invoice-info p:last-child');
+            if (statusElement) {
+                statusElement.textContent = `Trạng thái: ${invoiceStatus}`;
+                statusElement.style.color = invoiceStatus === "đã thanh toán" ? "#27ae60" : "#495057"; // Màu xanh cho "đã thanh toán"
+            }
+        }
+
+        // Hàm quay lại trang thanhtoan.html
+        function goBack() {
+            window.location.href = 'thanhtoan.html'; // Điều hướng về trang thanhtoan.html
+        }
+    </script>
+</body>
+
+</html>
