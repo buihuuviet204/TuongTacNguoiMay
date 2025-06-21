@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Thêm Khách Hàng - Quán ăn bình yên</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #A8BECE;
+      font-family: "Inter", sans-serif;
+    }
+    * {
+      font-family: "Inter", sans-serif;
+      color: #000;
+    }
+    .navbar {
+      background-color: #F8F9FA !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,.03);
+    }
+    .navbar-brand span {
+      font-weight: bold;
+      font-size: 1.45rem;
+      letter-spacing: 0.5px;
+    }
+    .navbar-nav .nav-link {
+      font-size: 1rem;
+      color: #000 !important;
+      opacity: 0.92;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      border-radius: 7px;
+      padding: 8px 16px !important;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+      background: #e5eef3;
+      color: #4A9E9E !important;
+    }
+    .navbar-nav .nav-link.active,
+    .navbar-nav .dropdown.show > .nav-link.dropdown-toggle,
+    .navbar-nav .dropdown .nav-link.active {
+      color: #000 !important;
+      font-weight: 700;
+      background: #e5eef3;
+    }
+    .navbar-nav .nav-link:active {
+      color: #000 !important;
+      background: #e5eef3;
+    }
+    .navbar .btn-primary {
+      background-color: #A8BECE;
+      border: none;
+      color: #232323;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 8px 24px;
+      font-size: 15px;
+    }
+    .navbar .btn-primary:hover {
+      background: #88a6b8;
+    }
+    .navbar-nav .dropdown:hover > .dropdown-menu {
+      display: block;
+      margin-top: 0;
+    }
+    .navbar-nav .dropdown-menu {
+      border-radius: 8px;
+      min-width: 180px;
+      background: #fff;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.09);
+      border: 1px solid #eaeaea;
+    }
+    .navbar-nav .dropdown-item {
+      font-size: 1rem;
+      color: #000;
+      padding: 10px 18px;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .navbar-nav .dropdown-item:hover, .navbar-nav .dropdown-item:focus {
+      background: #e5eef3;
+      color: #4A9E9E;
+    }
+    .navbar-nav .dropdown-toggle::after {
+      margin-left: 6px;
+    }
+    .card {
+      border: none;
+      text-align: left;
+      background-color: #FFF;
+      border-radius: 10px;
+      padding: 30px;
+      width: 100%;
+      max-width: 100%;
+    }
+    .title-nhanvien {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20%;
+      margin-top: 30px;
+      gap: 10px;
+    }
+    .btn-equal {
+      flex: 1 1 0;
+      max-width: 200px;
+      min-width: 120px;
+      padding: 8px 24px;
+      text-align: center;
+    }
+    .btn-success.btn-equal {
+      background: #5F8046 !important;
+      font-weight: 500;
+      border-radius: 10px;
+      border: none;
+    }
+    .btn-success.btn-equal:hover {
+      background: #497038 !important;
+    }
+    .btn-danger.btn-equal {
+      background: #E24141 !important;
+      font-weight: 500;
+      border-radius: 10px;
+      border: none;
+    }
+    .btn-danger.btn-equal:hover {
+      background: #b73030 !important;
+    }
+    .text-error {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    input.form-control.is-invalid {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+    input.form-control {
+      border-radius: 10px !important;
+    }
+    .card label {
+      font-weight: 500;
+    }
+    @media (max-width: 900px) {
+      .btn-container {
+        padding: 0 2%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md fixed-top py-3" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <span>LOGO HERE</span>
+      </a>
+      <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
+        <span class="visually-hidden">Toggle navigation</span>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navcol-1">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+          <li class="nav-item"><a class="nav-link" href="order.html" role="button">Đặt món</a></li>
+          <li class="nav-item"><a class="nav-link" href="thanhtoan.html" role="button">Thanh toán</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="false">Quản lý</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink3">
+              <li><a class="dropdown-item" href="quanlynhanvien.html">Quản lý nhân viên</a></li>
+              <li><a class="dropdown-item" href="quanlymonan.html">Quản lý món ăn</a></li>
+              <li><a class="dropdown-item" href="quanlykhachhang.html">Quản lý khách hàng</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="ThongKe.html">Thống kê</a></li>
+        </ul>
+        <a style="background-color: #A8BECE; border-radius: 10px; border: 0;" class="btn btn-primary shadow" role="button" href="signup.html">Xin chào, User admin</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container pt-5 mt-5">
+    <h2 class="title-nhanvien" style="margin-bottom: 0;">THÊM KHÁCH HÀNG</h2>
+    <div class="card mt-4 shadow">
+      <form id="khachHangForm" novalidate>
+        <div class="mb-3">
+          <label for="hoVaTen" class="form-label">Họ và tên <span style="color:red">*</span></label>
+          <input type="text" class="form-control" id="hoVaTen" required>
+          <div id="hoVaTenError" class="text-error"></div>
+        </div>
+        <div class="mb-3">
+          <label for="gioiTinh" class="form-label">Giới tính</label>
+          <input type="text" class="form-control" id="gioiTinh" value="Nam">
+        </div>
+        <div class="mb-3">
+          <label for="diaChi" class="form-label">Địa chỉ</label>
+          <input type="text" class="form-control" id="diaChi" value="Hà Nội">
+        </div>
+        <div class="mb-3">
+          <label for="soDienThoai" class="form-label">Số điện thoại <span style="color:red">*</span></label>
+          <input type="tel" class="form-control" id="soDienThoai" required>
+          <div id="soDienThoaiError" class="text-error"></div>
+        </div>
+        <div class="btn-container">
+          <button type="submit" class="btn btn-success btn-equal">Xác nhận</button>
+          <button type="button" class="btn btn-danger btn-equal" onclick="window.location.href='quanlykhachhang.html'">Hủy bỏ</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Popup xác nhận thành công -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 10px;">
+        <div class="modal-header" style="border-bottom: none;">
+          <h5 class="modal-title" id="successLabel"><b>Thêm Khách Hàng</b></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body d-flex align-items-center justify-content-center">
+          <i class="fa-solid fa-circle-check fs-1 me-3 modal-success-icon"></i>
+          <span class="fs-5">Thêm thông tin khách hàng thành công!</span>
+        </div>
+        <div class="modal-footer" style="justify-content: center;">
+          <button type="button" class="btn btn-primary" style="background: #3498db; border-radius: 10px; color: #fff; border: 0; min-width: 120px; padding: 8px 24px;" data-bs-dismiss="modal" id="successConfirmBtn">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const hoVaTen = document.getElementById("hoVaTen");
+      const soDienThoai = document.getElementById("soDienThoai");
+
+      hoVaTen.classList.remove("is-invalid");
+      soDienThoai.classList.remove("is-invalid");
+
+      // blur validation
+      hoVaTen.addEventListener("blur", function () {
+        const error = document.getElementById("hoVaTenError");
+        if (this.value.trim() === "") {
+          error.textContent = "Vui lòng nhập họ và tên khách hàng!";
+          this.classList.add("is-invalid");
+        } else {
+          error.textContent = "";
+          this.classList.remove("is-invalid");
+        }
+      });
+
+      soDienThoai.addEventListener("blur", function () {
+        const error = document.getElementById("soDienThoaiError");
+        if (this.value.trim() === "") {
+          error.textContent = "Vui lòng nhập số điện thoại khách hàng!";
+          this.classList.add("is-invalid");
+        } else {
+          error.textContent = "";
+          this.classList.remove("is-invalid");
+        }
+      });
+
+      document.getElementById("khachHangForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        let valid = true;
+
+        if (hoVaTen.value.trim() === "") {
+          document.getElementById("hoVaTenError").textContent = "Vui lòng nhập họ và tên khách hàng!";
+          hoVaTen.classList.add("is-invalid");
+          valid = false;
+        } else {
+          document.getElementById("hoVaTenError").textContent = "";
+          hoVaTen.classList.remove("is-invalid");
+        }
+
+        if (soDienThoai.value.trim() === "") {
+          document.getElementById("soDienThoaiError").textContent = "Vui lòng nhập số điện thoại khách hàng!";
+          soDienThoai.classList.add("is-invalid");
+          valid = false;
+        } else {
+          document.getElementById("soDienThoaiError").textContent = "";
+          soDienThoai.classList.remove("is-invalid");
+        }
+
+        if (valid) {
+          // Show modal thành công
+          var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+          myModal.show();
+        }
+      });
+
+      // Đóng modal thành công về lại trang quản lý khách hàng
+      document.getElementById("successConfirmBtn").onclick = function() {
+        window.location.href = "quanlykhachhang.html";
+      };
+
+    });
+  </script>
+</body>
+</html>
